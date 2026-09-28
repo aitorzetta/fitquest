@@ -10,7 +10,7 @@
 <link rel="icon" href="icon.svg">
 <title>FitQuest</title>
 <style>
-:root{--bg:#0b1020;--p:#182238;--p2:#101729;--t:#f7f8fb;--m:#9aa7bd;--l:#2a3650;--a:#7c5cff;--g:#18c79c;--w:#ffbd4a}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#17213c,#0b1020 45%,#080c17);color:var(--t);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:90px}.wrap{max-width:760px;margin:auto}.top{position:sticky;top:0;z-index:5;padding:20px 16px 8px;background:linear-gradient(#0b1020 70%,transparent)}h1{margin:0;font-size:30px}.ey{font-size:11px;color:var(--g);font-weight:800;letter-spacing:2px}.switch,.nav{display:grid;grid-template-columns:1fr 1fr;gap:10px}.switch{padding:8px 16px 12px}.switch button,.nav button,.btn,.q{border:0;font:inherit}.switch button{padding:12px;border-radius:16px;background:var(--p2);color:var(--m);font-weight:800;border:1px solid var(--l)}.switch button.on{background:linear-gradient(135deg,#6d53ef,#8f74ff);color:#fff}.main{padding:4px 16px}.card{background:linear-gradient(180deg,#182238,#111828);border:1px solid var(--l);border-radius:22px;padding:16px;margin:10px 0;box-shadow:0 14px 30px #0004}.hero{background:linear-gradient(135deg,#7c5cff48,#18c79c26,#182238)}.row{display:flex;justify-content:space-between;align-items:center;gap:12px}.big{font-size:38px;font-weight:900}.muted{color:var(--m)}.mini{font-size:12px}.badge{display:inline-block;padding:7px 10px;border-radius:999px;background:#0e1626;border:1px solid var(--l);font-size:12px;font-weight:800}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.metric b{display:block;font-size:23px;margin-top:4px}.bar{height:12px;background:#0d1424;border:1px solid var(--l);border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--a),var(--g))}.sec{font-size:19px;margin:22px 2px 8px}.quest{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:11px;border:1px solid var(--l);border-radius:15px;background:#0e1626;margin:8px 0}.q{padding:9px 11px;border-radius:11px;background:#24314c;color:#dce4f3;font-weight:800}.q.done{background:#163a31;color:#7df0ba}.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(760px,100%);grid-template-columns:repeat(5,1fr);background:#090e1bf2;border-top:1px solid var(--l);padding:8px 6px calc(8px + env(safe-area-inset-bottom));z-index:8}.nav button{background:transparent;color:#8492aa;border-radius:12px;padding:7px 2px;font-size:11px}.nav button.on{background:#151e31;color:#fff}.nav span{display:block;font-size:20px}.field{display:flex;flex-direction:column;gap:6px;margin:10px 0}.formSection{margin:14px 0 6px;padding-top:10px;border-top:1px solid var(--l)}.formSection:first-child{border-top:0;padding-top:0}.formTitle{font-weight:900;margin-bottom:6px}.hint{font-size:12px;color:var(--m);line-height:1.35}.field label{font-size:12px;color:var(--m);font-weight:800}.field input,.field textarea,.field select{background:#0c1322;color:#fff;border:1px solid var(--l);border-radius:13px;padding:12px;font:inherit;width:100%}.field textarea{min-height:80px}.btn{padding:12px 15px;border-radius:13px;background:linear-gradient(135deg,var(--a),#9c7cff);color:white;font-weight:900}.btn.alt{background:#172238;border:1px solid var(--l)}.hist{padding:11px;border:1px solid var(--l);border-radius:14px;background:#0e1626;margin:8px 0}.dailyRow{padding:10px 0;border-bottom:1px solid var(--l)}.dailyRow:last-child{border-bottom:0}.dailyTop{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:7px}.dailyVal{font-weight:900}.dayCard{padding:13px;border:1px solid var(--l);border-radius:16px;background:#0e1626;margin:8px 0}.ok{color:#7df0ba}.warn{color:#ffd27a}.locked{opacity:.42}.toast{position:fixed;left:50%;bottom:105px;transform:translateX(-50%);background:#fff;color:#111;padding:10px 14px;border-radius:12px;font-weight:800;display:none;z-index:20}@media(min-width:650px){.grid{grid-template-columns:repeat(3,1fr)}}
+:root{--bg:#0b1020;--p:#182238;--p2:#101729;--t:#f7f8fb;--m:#9aa7bd;--l:#2a3650;--a:#7c5cff;--g:#18c79c;--w:#ffbd4a}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#17213c,#0b1020 45%,#080c17);color:var(--t);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:90px}.wrap{max-width:760px;margin:auto}.top{position:sticky;top:0;z-index:5;padding:20px 16px 8px;background:linear-gradient(#0b1020 70%,transparent)}h1{margin:0;font-size:30px}.ey{font-size:11px;color:var(--g);font-weight:800;letter-spacing:2px}.switch,.nav{display:grid;grid-template-columns:1fr 1fr;gap:10px}.switch{padding:8px 16px 12px}.switch button,.nav button,.btn,.q{border:0;font:inherit}.switch button{padding:12px;border-radius:16px;background:var(--p2);color:var(--m);font-weight:800;border:1px solid var(--l)}.switch button.on{background:linear-gradient(135deg,#6d53ef,#8f74ff);color:#fff}.main{padding:4px 16px}.card{background:linear-gradient(180deg,#182238,#111828);border:1px solid var(--l);border-radius:22px;padding:16px;margin:10px 0;box-shadow:0 14px 30px #0004}.hero{background:linear-gradient(135deg,#7c5cff48,#18c79c26,#182238)}.row{display:flex;justify-content:space-between;align-items:center;gap:12px}.big{font-size:38px;font-weight:900}.muted{color:var(--m)}.mini{font-size:12px}.badge{display:inline-block;padding:7px 10px;border-radius:999px;background:#0e1626;border:1px solid var(--l);font-size:12px;font-weight:800}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.metric b{display:block;font-size:23px;margin-top:4px}.bar{height:12px;background:#0d1424;border:1px solid var(--l);border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--a),var(--g))}.sec{font-size:19px;margin:22px 2px 8px}.quest{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:11px;border:1px solid var(--l);border-radius:15px;background:#0e1626;margin:8px 0}.q{padding:9px 11px;border-radius:11px;background:#24314c;color:#dce4f3;font-weight:800}.q.done{background:#163a31;color:#7df0ba}.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(760px,100%);grid-template-columns:repeat(5,1fr);background:#090e1bf2;border-top:1px solid var(--l);padding:8px 6px calc(8px + env(safe-area-inset-bottom));z-index:8}.nav button{background:transparent;color:#8492aa;border-radius:12px;padding:7px 2px;font-size:11px}.nav button.on{background:#151e31;color:#fff}.nav span{display:block;font-size:20px}.field{display:flex;flex-direction:column;gap:6px;margin:10px 0}.formSection{margin:14px 0 6px;padding-top:10px;border-top:1px solid var(--l)}.formSection:first-child{border-top:0;padding-top:0}.formTitle{font-weight:900;margin-bottom:6px}.hint{font-size:12px;color:var(--m);line-height:1.35}.mealCard{padding:12px;border:1px solid var(--l);border-radius:16px;background:#0e1626;margin:10px 0}.mealGrid{display:grid;grid-template-columns:90px 1fr;gap:8px}.mealGrid .full{grid-column:1/-1}.mealActions{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:8px}.mealTotal{padding:12px;border-radius:14px;background:#10192b;border:1px solid var(--l);margin-top:10px}.mealTotal b{font-size:20px}.danger{background:#321a22!important;color:#ff9cac!important;border:1px solid #5a2637!important}.field label{font-size:12px;color:var(--m);font-weight:800}.field input,.field textarea,.field select{background:#0c1322;color:#fff;border:1px solid var(--l);border-radius:13px;padding:12px;font:inherit;width:100%}.field textarea{min-height:80px}.btn{padding:12px 15px;border-radius:13px;background:linear-gradient(135deg,var(--a),#9c7cff);color:white;font-weight:900}.btn.alt{background:#172238;border:1px solid var(--l)}.hist{padding:11px;border:1px solid var(--l);border-radius:14px;background:#0e1626;margin:8px 0}.dailyRow{padding:10px 0;border-bottom:1px solid var(--l)}.dailyRow:last-child{border-bottom:0}.dailyTop{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:7px}.dailyVal{font-weight:900}.dayCard{padding:13px;border:1px solid var(--l);border-radius:16px;background:#0e1626;margin:8px 0}.ok{color:#7df0ba}.warn{color:#ffd27a}.locked{opacity:.42}.toast{position:fixed;left:50%;bottom:105px;transform:translateX(-50%);background:#fff;color:#111;padding:10px 14px;border-radius:12px;font-weight:800;display:none;z-index:20}@media(min-width:650px){.grid{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
@@ -49,17 +49,48 @@ function goalRow(icon,label,value,goal,suffix){
   var has=value!==null&&value!==undefined&&value!=="",num=has?Number(value):0,pct=clampPct(num,goal);
   return '<div class="dailyRow"><div class="dailyTop"><span>'+icon+' '+label+'</span><span class="dailyVal '+(has&&num>=goal?'ok':'')+'">'+(has?f(num,label==="Pasos"?0:1):'—')+' / '+f(goal,label==="Pasos"?0:1)+' '+suffix+'</span></div><div class="bar"><i style="width:'+pct+'%"></i></div></div>'
 }
+
+function mealProtein(e){
+  if(e&&Array.isArray(e.meals)&&e.meals.length)return e.meals.reduce(function(a,m){return a+(Number(m.protein)||0)},0);
+  return e&&e.protein!=null?Number(e.protein):0
+}
+function mealCalories(e){
+  if(e&&Array.isArray(e.meals)&&e.meals.length)return e.meals.reduce(function(a,m){return a+(Number(m.calories)||0)},0);
+  return e&&e.calories!=null?Number(e.calories):0
+}
+function mealCount(e){return e&&Array.isArray(e.meals)?e.meals.length:0}
+function mealRowHTML(m){
+  m=m||{};
+  return '<div class="mealCard mealRow">'+
+    '<div class="mealGrid">'+
+      '<div class="field"><label>Hora</label><input class="mealTime" type="time" value="'+esc(m.time||"")+'"></div>'+
+      '<div class="field"><label>Tipo</label><select class="mealType">'+
+        ["🍽️ Comida","🥪 Bocadillo","🥤 Batido","🍎 Snack","🍴 Cena","☕ Desayuno","➕ Otro"].map(function(v){return '<option '+(m.type===v?'selected':'')+'>'+v+'</option>'}).join("")+
+      '</select></div>'+
+      '<div class="field full"><label>Qué has comido</label><input class="mealName" type="text" placeholder="Ej. bocadillo de pollo, ensalada..." value="'+esc(m.name||"")+'"></div>'+
+      '<div class="field"><label>Proteína (g)</label><input class="mealProtein" type="number" step="1" min="0" placeholder="Opcional" value="'+(m.protein==null?"":m.protein)+'"></div>'+
+      '<div class="field"><label>Kcal</label><input class="mealCalories" type="number" step="1" min="0" placeholder="Opcional" value="'+(m.calories==null?"":m.calories)+'"></div>'+
+    '</div>'+
+    '<div class="mealActions"><span class="mini muted">Proteína y kcal son opcionales.</span><button type="button" class="q danger removeMeal">Eliminar</button></div>'+
+  '</div>'
+}
+function mealsSummaryHTML(e){
+  var pc=mealProtein(e),kc=mealCalories(e),cnt=mealCount(e);
+  return '<div class="mealTotal"><div class="row"><div><span class="mini muted">COMIDAS REGISTRADAS</span><b style="display:block">'+cnt+'</b></div><div style="text-align:right"><span class="mini muted">TOTAL DEL DÍA</span><b style="display:block">'+f(pc,0)+' g proteína'+(kc?' · '+f(kc,0)+' kcal':'')+'</b></div></div></div>'
+}
+
 function todayBlock(){
   var x=p(),e=todayEntry(),done=0;
   if(e&&e.steps!=null&&e.steps>=x.steps)done++;
   if(e&&e.sleep!=null&&e.sleep>=x.sleepGoal)done++;
-  if(e&&e.protein!=null&&e.protein>=x.protein)done++;
+  if(e&&mealProtein(e)>=x.protein)done++;
   if(e&&e.training&&e.training!=="No")done++;
   return '<h2 class="sec">Hoy</h2><section class="card">'+
     '<div class="row"><div><div class="ey">'+localDate()+'</div><b>Progreso diario</b></div><span class="badge">'+done+'/4 objetivos</span></div>'+
     goalRow("🚶","Pasos",e&&e.steps,x.steps,"pasos")+
     goalRow("😴","Sueño",e&&e.sleep,x.sleepGoal,"h")+
-    goalRow("🥤","Proteína",e&&e.protein,x.protein,"g")+
+    '<div class="dailyRow"><div class="dailyTop"><span>🍽️ Comidas</span><span class="dailyVal">'+(e&&mealCount(e)?mealCount(e)+' registradas':'Pendiente')+'</span></div></div>'+
+    goalRow("🥤","Proteína",e?mealProtein(e):null,x.protein,"g")+
     '<div class="dailyRow"><div class="dailyTop"><span>🏋️ Entrenamiento</span><span class="dailyVal '+(e&&e.training&&e.training!=="No"?'ok':'')+'">'+(e&&e.training?e.training:'Pendiente')+'</span></div></div>'+
     '<div class="row" style="margin-top:12px"><span class="mini muted">'+(e?'Registro de hoy activo':'Aún no hay registro de hoy')+'</span><button id="goLog" class="btn">Completar día</button></div>'+
   '</section>'
@@ -72,7 +103,7 @@ function recentEntries(){
 function weekBlock(){
   var x=p(),r=recentEntries(),withSteps=r.filter(function(z){return z.e&&z.e.steps!=null}),avgSteps=withSteps.length?Math.round(withSteps.reduce(function(a,z){return a+Number(z.e.steps)},0)/withSteps.length):0;
   var sleepDays=r.filter(function(z){return z.e&&z.e.sleep!=null&&z.e.sleep>=x.sleepGoal}).length;
-  var proteinDays=r.filter(function(z){return z.e&&z.e.protein!=null&&z.e.protein>=x.protein}).length;
+  var proteinDays=r.filter(function(z){return z.e&&mealProtein(z.e)>=x.protein}).length;
   var trainings=r.filter(function(z){return z.e&&z.e.training&&z.e.training!=="No"}).length;
   return '<h2 class="sec">Últimos 7 días</h2><section class="card"><div class="grid">'+
     '<div class="metric"><span class="mini muted">PASOS MEDIOS</span><b>'+avgSteps+'</b></div>'+
@@ -105,14 +136,23 @@ todayBlock()+weekBlock()+
 }
 function log(){
 var x=p(),arr=es().slice().sort(function(a,b){return b.date.localeCompare(a.date)}).slice(0,10);
-var hist=arr.length?arr.map(function(e){return '<div class="hist"><div class="row"><b>'+e.date+'</b><b>'+(e.weight?f(e.weight)+' kg':'')+'</b></div><div class="mini muted">'+(e.steps!=null?'🚶 '+e.steps+' pasos · ':'')+(e.sleep!=null?'😴 '+f(e.sleep,1)+' h · ':'')+(e.protein!=null?'🥤 '+e.protein+' g · ':'')+(e.training?'🏋️ '+e.training:'')+'</div>'+(e.notes?'<div class="mini" style="margin-top:6px">'+esc(e.notes)+'</div>':'')+'</div>'}).join(""):'<div class="card muted">Todavía no hay días registrados.</div>';
+var hist=arr.length?arr.map(function(e){var pc=mealProtein(e),kc=mealCalories(e),cnt=mealCount(e);return '<div class="hist"><div class="row"><b>'+e.date+'</b><b>'+(e.weight?f(e.weight)+' kg':'')+'</b></div><div class="mini muted">'+
+(e.steps!=null?'🚶 '+e.steps+' pasos · ':'')+
+(e.sleep!=null?'😴 '+f(e.sleep,1)+' h · ':'')+
+(cnt?'🍽️ '+cnt+' comidas · ':'')+
+(pc?'🥤 '+f(pc,0)+' g proteína · ':'')+
+(kc?'🔥 '+f(kc,0)+' kcal · ':'')+
+(e.training?'🏋️ '+e.training:'')+'</div>'+(e.notes?'<div class="mini" style="margin-top:6px">'+esc(e.notes)+'</div>':'')+'</div>'}).join(""):'<div class="card muted">Todavía no hay días registrados.</div>';
 return '<h2 class="sec">Registrar día · '+x.name+'</h2><form id="form" class="card">'+
 '<div class="formSection"><div class="formTitle">📅 Día</div><div class="hint">Escoge el día que quieras completar o corregir. Si ya existe, FitQuest cargará sus datos.</div>'+
 field("Fecha","date","date",localDate())+'</div>'+
-'<div class="formSection"><div class="formTitle">🎮 Progreso diario</div>'+
+'<div class="formSection"><div class="formTitle">🎮 Actividad y descanso</div>'+
 field("Pasos","steps","number","","","1")+
 field("Sueño (horas)","sleep","number","","","0.1")+
-field("Proteína (g)","protein","number","","","1")+
+'</div>'+
+'<div class="formSection"><div class="row"><div><div class="formTitle">🍽️ Comidas</div><div class="hint">Añade lo que vayas comiendo. Proteína y kcal son opcionales.</div></div><button id="addMeal" type="button" class="btn alt">+ Añadir</button></div>'+
+'<div id="meals"></div><div id="mealSummary">'+mealsSummaryHTML(null)+'</div></div>'+
+'<div class="formSection"><div class="formTitle">🏋️ Estado del día</div>'+
 '<div class="field"><label>Entrenamiento</label><select name="training"><option></option><option>No</option><option>Fuerza</option><option>Cardio</option><option>Mixto</option><option>PortAventura / caminata larga</option></select></div>'+
 field("Hambre 1–10","hunger","number","","","1")+
 field("Energía 1–10","energy","number","","","1")+
@@ -135,7 +175,8 @@ var daily=days.map(function(z){
     '<div class="mini muted" style="margin-top:8px">'+
     (e.steps!=null?'🚶 '+e.steps+' pasos · ':'')+
     (e.sleep!=null?'😴 '+f(e.sleep,1)+' h · ':'')+
-    (e.protein!=null?'🥤 '+e.protein+' g':'')+
+    (mealCount(e)?'🍽️ '+mealCount(e)+' comidas · ':'')+
+    (mealProtein(e)?'🥤 '+f(mealProtein(e),0)+' g':'')+
     '</div></div>'
 }).join("");
 return '<h2 class="sec">Progreso · '+x.name+'</h2>'+
@@ -167,14 +208,39 @@ wire()
 }
 function wire(){
 var gl=document.getElementById("goLog");if(gl)gl.onclick=function(){s.view="log";save();render()};
-var form=document.getElementById("form");
+var form=document.getElementById("form"),mealsBox=document.getElementById("meals"),mealSummary=document.getElementById("mealSummary"),addMeal=document.getElementById("addMeal");
+function currentMeals(){
+  if(!mealsBox)return[];
+  return Array.from(mealsBox.querySelectorAll(".mealRow")).map(function(r){
+    return {time:r.querySelector(".mealTime").value,type:r.querySelector(".mealType").value,name:r.querySelector(".mealName").value.trim(),protein:n(r.querySelector(".mealProtein").value),calories:n(r.querySelector(".mealCalories").value)}
+  }).filter(function(m){return m.time||m.name||m.protein!=null||m.calories!=null})
+}
+function refreshMealSummary(){
+  if(!mealSummary)return;
+  var meals=currentMeals(),temp={meals:meals};
+  mealSummary.innerHTML=mealsSummaryHTML(temp);
+}
+function bindMealRows(){
+  if(!mealsBox)return;
+  mealsBox.querySelectorAll(".removeMeal").forEach(function(b){b.onclick=function(){b.closest(".mealRow").remove();refreshMealSummary()}});
+  mealsBox.querySelectorAll("input,select").forEach(function(el){el.addEventListener("input",refreshMealSummary);el.addEventListener("change",refreshMealSummary)});
+}
+function setMeals(meals,legacyProtein){
+  if(!mealsBox)return;
+  meals=Array.isArray(meals)?meals:[];
+  if(!meals.length&&legacyProtein!=null)meals=[{type:"➕ Otro",name:"Registro previo",protein:legacyProtein,calories:null,time:""}];
+  mealsBox.innerHTML=meals.map(mealRowHTML).join("");
+  bindMealRows();refreshMealSummary();
+}
+if(addMeal)addMeal.onclick=function(){mealsBox.insertAdjacentHTML("beforeend",mealRowHTML({type:"🍽️ Comida"}));bindMealRows();refreshMealSummary()};
 function loadDay(date){
   if(!form)return;
   var e=es().find(function(v){return v.date===date})||{};
-  ["steps","sleep","protein","hunger","energy","weight","waist","notes"].forEach(function(k){
+  ["steps","sleep","hunger","energy","weight","waist","notes"].forEach(function(k){
     if(form.elements[k])form.elements[k].value=e[k]==null?"":e[k];
   });
   if(form.elements.training)form.elements.training.value=e.training||"";
+  setMeals(e.meals,e.protein);
 }
 if(form&&form.elements.date){
   form.elements.date.addEventListener("change",function(){loadDay(this.value)});
@@ -182,7 +248,7 @@ if(form&&form.elements.date){
 }
 document.querySelectorAll("[data-q]").forEach(function(b){b.onclick=function(){var k=b.getAttribute("data-q");s.quests[s.active][k]=s.quests[s.active][k]?0:1;save();render()}});
 var plus=document.getElementById("plus"),minus=document.getElementById("minus");if(plus)plus.onclick=function(){s.raid.done=Math.min(s.raid.target,s.raid.done+1);save();render()};if(minus)minus.onclick=function(){s.raid.done=Math.max(0,s.raid.done-1);save();render()};
-if(form)form.onsubmit=function(e){e.preventDefault();var d=new FormData(form),o={date:d.get("date"),weight:n(d.get("weight")),waist:n(d.get("waist")),protein:n(d.get("protein")),steps:n(d.get("steps")),sleep:n(d.get("sleep")),hunger:n(d.get("hunger")),energy:n(d.get("energy")),training:d.get("training"),notes:d.get("notes")};var arr=es(),i=arr.findIndex(function(v){return v.date===o.date});if(i>=0)arr[i]=o;else arr.push(o);if(o.weight!=null)p().weight=o.weight;if(o.waist!=null)p().waist=o.waist;s.quests[s.active].checkin=1;save();render();t("Día guardado ✅")};
+if(form)form.onsubmit=function(e){e.preventDefault();var d=new FormData(form),meals=currentMeals(),protein=meals.reduce(function(a,m){return a+(Number(m.protein)||0)},0),calories=meals.reduce(function(a,m){return a+(Number(m.calories)||0)},0),o={date:d.get("date"),weight:n(d.get("weight")),waist:n(d.get("waist")),protein:protein||null,calories:calories||null,meals:meals,steps:n(d.get("steps")),sleep:n(d.get("sleep")),hunger:n(d.get("hunger")),energy:n(d.get("energy")),training:d.get("training"),notes:d.get("notes")};var arr=es(),i=arr.findIndex(function(v){return v.date===o.date});if(i>=0)arr[i]=o;else arr.push(o);if(o.weight!=null)p().weight=o.weight;if(o.waist!=null)p().waist=o.waist;s.quests[s.active].checkin=1;save();render();t("Día guardado ✅")};
 var ss=document.getElementById("saveSet");if(ss)ss.onclick=function(){var d=new FormData(ss.parentElement);p().boss=Number(d.get("boss"))||p().boss;p().protein=Number(d.get("protein"))||p().protein;p().steps=Number(d.get("steps"))||p().steps;p().sleepGoal=Number(d.get("sleepGoal"))||p().sleepGoal;save();render();t("Objetivos guardados")};
 var ex=document.getElementById("export");if(ex)ex.onclick=function(){var b=new Blob([JSON.stringify(s,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="fitquest-backup.json";a.click()};
 var im=document.getElementById("import");if(im)im.onchange=function(){var r=new FileReader();r.onload=function(){try{s=merge(clone(base),JSON.parse(r.result));save();render();t("Partida importada ✅")}catch(e){t("Archivo no válido")}};if(im.files[0])r.readAsText(im.files[0])}
@@ -200,7 +266,7 @@ function importHealthFromUrl(){
     var sleep=rawSleep==null||rawSleep===""?null:Number(String(rawSleep).replace(",","."));
     var arr=s.entries[who]||(s.entries[who]=[]);
     var i=arr.findIndex(function(v){return v.date===date});
-    var o=i>=0?arr[i]:{date:date,weight:null,waist:null,protein:null,steps:null,sleep:null,hunger:null,energy:null,training:"",notes:""};
+    var o=i>=0?arr[i]:{date:date,weight:null,waist:null,protein:null,calories:null,meals:[],steps:null,sleep:null,hunger:null,energy:null,training:"",notes:""};
     if(Number.isFinite(steps))o.steps=Math.max(0,Math.round(steps));
     if(Number.isFinite(sleep))o.sleep=Math.max(0,Math.round(sleep*100)/100);
     if(i>=0)arr[i]=o;else arr.push(o);
