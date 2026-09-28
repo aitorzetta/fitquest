@@ -197,7 +197,7 @@ var x=p(),wl=lost(),cw=Math.max(0,x.startWaist-x.waist),a=[
 return '<h2 class="sec">Logros · '+x.name+'</h2>'+a.map(function(z){return '<section class="card '+(z[3]?'':'locked')+'"><div class="row"><div><b>'+z[0]+' '+z[1]+'</b><div class="mini muted">'+z[2]+'</div></div><span class="badge">'+(z[3]?'DESBLOQUEADO':'BLOQUEADO')+'</span></div></section>'}).join("")
 }
 function settings(){
-var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p></section>'
+var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p><p class="mini muted">Build 2026.09.28.9</p></section>'
 }
 function esc(v){return String(v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]})}
 function render(){
@@ -278,7 +278,7 @@ function importHealthFromUrl(){
 function n(v){return v===""?null:Number(v)}
 document.querySelectorAll("[data-p]").forEach(function(b){b.onclick=function(){s.active=b.getAttribute("data-p");save();render()}});
 document.querySelectorAll("[data-v]").forEach(function(b){b.onclick=function(){s.view=b.getAttribute("data-v");save();render()}});
-if("serviceWorker" in navigator)window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});
+if("serviceWorker" in navigator)window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(r){r.update().catch(function(){})}).catch(function(){})});
 var importedHealth=importHealthFromUrl();render();if(importedHealth)setTimeout(function(){t("Datos de Salud importados 🍎")},150)
 })();
 </script>
