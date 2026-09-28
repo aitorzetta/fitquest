@@ -31,7 +31,7 @@ function healthImportScript(){
       s.active=who;
       var d=new Date(),date=q.get("date")||(d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"));
       var steps=q.get("steps"),sleep=q.get("sleep");
-      steps=steps==null||steps===""?null:Math.max(0,Math.round(Number(String(steps).replace(",","."))));
+      steps=steps==null||steps===""?null:Math.max(0,Math.round(Number(String(steps).replace(/[^0-9]/g,""))));
       sleep=sleep==null||sleep===""?null:Math.max(0,Number(String(sleep).replace(",",".")));
       var arr=s.entries[who]||(s.entries[who]=[]);
       var i=arr.findIndex(function(v){return v.date===date});
