@@ -109,11 +109,32 @@ var ss=document.getElementById("saveSet");if(ss)ss.onclick=function(){var d=new 
 var ex=document.getElementById("export");if(ex)ex.onclick=function(){var b=new Blob([JSON.stringify(s,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="fitquest-backup.json";a.click()};
 var im=document.getElementById("import");if(im)im.onchange=function(){var r=new FileReader();r.onload=function(){try{s=merge(clone(base),JSON.parse(r.result));save();render();t("Partida importada ✅")}catch(e){t("Archivo no válido")}};if(im.files[0])r.readAsText(im.files[0])}
 }
+function importHealthFromUrl(){
+  try{
+    var q=new URLSearchParams(location.search);
+    if(q.get("fq")!=="health")return false;
+    var who=q.get("profile")==="laura"?"laura":"aitor";
+    s.active=who;
+    var d=new Date(),date=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+    var rawSteps=q.get("steps"),rawSleep=q.get("sleep");
+    var steps=rawSteps==null||rawSteps===""?null:Number(String(rawSteps).replace(/[^0-9]/g,""));
+    var sleep=rawSleep==null||rawSleep===""?null:Number(String(rawSleep).replace(",","."));
+    var arr=s.entries[who]||(s.entries[who]=[]);
+    var i=arr.findIndex(function(v){return v.date===date});
+    var o=i>=0?arr[i]:{date:date,weight:null,waist:null,protein:null,steps:null,sleep:null,hunger:null,energy:null,training:"",notes:""};
+    if(Number.isFinite(steps))o.steps=Math.max(0,Math.round(steps));
+    if(Number.isFinite(sleep))o.sleep=Math.max(0,Math.round(sleep*100)/100);
+    if(i>=0)arr[i]=o;else arr.push(o);
+    save();
+    try{history.replaceState({},"",location.pathname)}catch(e){}
+    return true;
+  }catch(e){return false}
+}
 function n(v){return v===""?null:Number(v)}
 document.querySelectorAll("[data-p]").forEach(function(b){b.onclick=function(){s.active=b.getAttribute("data-p");save();render()}});
 document.querySelectorAll("[data-v]").forEach(function(b){b.onclick=function(){s.view=b.getAttribute("data-v");save();render()}});
 if("serviceWorker" in navigator)window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});
-render()
+var importedHealth=importHealthFromUrl();render();if(importedHealth)setTimeout(function(){t("Datos de Salud importados 🍎")},150)
 })();
 </script>
 </body>
