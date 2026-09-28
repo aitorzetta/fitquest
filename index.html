@@ -111,7 +111,8 @@ var im=document.getElementById("import");if(im)im.onchange=function(){var r=new 
 }
 function importHealthFromUrl(){
   try{
-    var q=new URLSearchParams(location.search);
+    var raw=location.hash&&location.hash.indexOf("#fq=")===0?location.hash.slice(1):location.search.slice(1);
+    var q=new URLSearchParams(raw);
     if(q.get("fq")!=="health")return false;
     var who=q.get("profile")==="laura"?"laura":"aitor";
     s.active=who;
