@@ -31,7 +31,7 @@
 (function(){
 var K="fitquest_state_v1";
 var base={active:"aitor",view:"home",xp:0,profiles:{
-aitor:{name:"Aitor",emoji:"🧔",start:152.9,weight:152.9,startWaist:140,waist:140,fat:47.7,visceral:26,muscle:76,boss:145,protein:150,steps:5000,sleepGoal:7},
+aitor:{name:"Aitor",emoji:"🧔",start:152.9,weight:152.9,startWaist:140,waist:140,fat:47.7,visceral:26,muscle:76,boss:145,protein:130,steps:5000,sleepGoal:7},
 laura:{name:"Laura",emoji:"👩",start:107.8,weight:107.8,startWaist:112,waist:112,fat:52,visceral:21,muscle:48.5,boss:102,protein:100,steps:5000,sleepGoal:7}},
 entries:{aitor:[],laura:[]},
 quests:{aitor:{nutrition:0,movement:0,strength:0,sleep:0,checkin:0},laura:{nutrition:0,movement:0,strength:0,sleep:0,checkin:0}},
@@ -39,6 +39,7 @@ raid:{done:0,target:4}};
 function clone(o){return JSON.parse(JSON.stringify(o))}
 function merge(a,b){Object.keys(b||{}).forEach(function(k){if(b[k]&&typeof b[k]==="object"&&!Array.isArray(b[k])&&a[k])merge(a[k],b[k]);else a[k]=b[k]});return a}
 var s;try{s=merge(clone(base),JSON.parse(localStorage.getItem(K)||"{}"))}catch(e){s=clone(base)}
+if(s.profiles&&s.profiles.aitor&&Number(s.profiles.aitor.protein)===150){s.profiles.aitor.protein=130;try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}}
 function save(){localStorage.setItem(K,JSON.stringify(s))}
 function p(){return s.profiles[s.active]}
 function es(){return s.entries[s.active]||[]}
@@ -192,6 +193,7 @@ function workoutCount(){return allEntries().filter(function(e){return e.training
 function maxSteps(){return allEntries().reduce(function(m,e){return Math.max(m,Number(e.steps)||0)},0)}
 function totalSteps(){return allEntries().reduce(function(a,e){return a+(Number(e.steps)||0)},0)}
 function proteinGoalDays(){var g=p().protein;return allEntries().filter(function(e){return mealProtein(e)>=g}).length}
+function maxProteinDay(){return allEntries().reduce(function(m,e){return Math.max(m,mealProtein(e))},0)}
 function sleepGoalDays(){var g=p().sleepGoal;return allEntries().filter(function(e){return e.sleep!=null&&Number(e.sleep)>=g}).length}
 function mealDays(){return allEntries().filter(function(e){return mealCount(e)>0}).length}
 function maxMeals(){return allEntries().reduce(function(m,e){return Math.max(m,mealCount(e))},0)}
@@ -215,7 +217,7 @@ function sharedRecordedDay(){
   return a.some(function(d){return b.indexOf(d)>=0})
 }
 function achievementDefs(){
-  var x=p(),wl=lost(),cw=Math.max(0,x.startWaist-x.waist),rd=registeredDays(),st=longestStreak(),wc=workoutCount(),mx=maxSteps(),ts=totalSteps(),pg=proteinGoalDays(),sg=sleepGoalDays(),md=mealDays(),mm=maxMeals(),pd=perfectDays();
+  var x=p(),wl=lost(),cw=Math.max(0,x.startWaist-x.waist),rd=registeredDays(),st=longestStreak(),wc=workoutCount(),mx=maxSteps(),ts=totalSteps(),pg=proteinGoalDays(),mp=maxProteinDay(),sg=sleepGoalDays(),md=mealDays(),mm=maxMeals(),pd=perfectDays();
   return [
     {id:"start",cat:"Comienzo",icon:"🎬",name:"Comienza la partida",desc:"Crear tu partida de FitQuest.",ok:true,now:1,goal:1},
     {id:"firstday",cat:"Comienzo",icon:"📝",name:"Primer día registrado",desc:"Guardar tu primer día.",ok:rd>=1,now:rd,goal:1},
@@ -235,6 +237,7 @@ function achievementDefs(){
     {id:"meal3",cat:"Nutrición",icon:"🥗",name:"Día bien apuntado",desc:"Registrar 3 comidas en un mismo día.",ok:mm>=3,now:mm,goal:3},
     {id:"protein1",cat:"Nutrición",icon:"🥤",name:"Objetivo proteico",desc:"Alcanzar tu proteína objetivo en un día.",ok:pg>=1,now:pg,goal:1},
     {id:"protein5",cat:"Nutrición",icon:"🍗",name:"Combustible de calidad",desc:"Cumplir proteína objetivo 5 días.",ok:pg>=5,now:pg,goal:5},
+    {id:"protein150",cat:"Nutrición",icon:"💪",name:"Día proteico perfecto",desc:"Llegar a 150 g de proteína en un día.",ok:mp>=150,now:mp,goal:150,suffix:" g"},
     {id:"sleep1",cat:"Descanso",icon:"😴",name:"Descanso merecido",desc:"Cumplir tu objetivo de sueño un día.",ok:sg>=1,now:sg,goal:1},
     {id:"sleep5",cat:"Descanso",icon:"🌙",name:"Posada habitual",desc:"Cumplir tu objetivo de sueño 5 días.",ok:sg>=5,now:sg,goal:5},
 
@@ -270,7 +273,7 @@ function ach(){
   return html
 }
 function settings(){
-var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p><p class="mini muted">Build 2026.09.28.11</p></section>'
+var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p><p class="mini muted">Build 2026.09.29.12</p></section>'
 }
 function esc(v){return String(v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]})}
 function render(){
