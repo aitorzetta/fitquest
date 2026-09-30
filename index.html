@@ -35,14 +35,22 @@ aitor:{name:"Aitor",emoji:"🧔",start:152.9,weight:152.9,startWaist:140,waist:1
 laura:{name:"Laura",emoji:"👩",start:107.8,weight:107.8,startWaist:112,waist:112,fat:52,visceral:21,muscle:48.5,boss:102,protein:100,steps:5000,sleepGoal:7}},
 entries:{aitor:[],laura:[]},
 quests:{aitor:{nutrition:0,movement:0,strength:0,sleep:0,checkin:0},laura:{nutrition:0,movement:0,strength:0,sleep:0,checkin:0}},
-raid:{done:0,target:4}};
+raids:{aitor:[],laura:[]},raid:{done:0,target:4}};
 function clone(o){return JSON.parse(JSON.stringify(o))}
 function merge(a,b){Object.keys(b||{}).forEach(function(k){if(b[k]&&typeof b[k]==="object"&&!Array.isArray(b[k])&&a[k])merge(a[k],b[k]);else a[k]=b[k]});return a}
 var s;try{s=merge(clone(base),JSON.parse(localStorage.getItem(K)||"{}"))}catch(e){s=clone(base)}
 if(s.profiles&&s.profiles.aitor&&Number(s.profiles.aitor.protein)===150){s.profiles.aitor.protein=130;try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}}
+if(!s.raids)s.raids={aitor:[],laura:[]};
+if(s.raid&&Number(s.raid.done)>0&&!s._raidMigrated){
+  for(var ri=0;ri<Number(s.raid.done);ri++)s.raids.aitor.push({date:"",title:"PortAventura",xp:100});
+  s._raidMigrated=1;try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}
+}
 function save(){localStorage.setItem(K,JSON.stringify(s))}
 function p(){return s.profiles[s.active]}
 function es(){return s.entries[s.active]||[]}
+function rs(){return (s.raids&&s.raids[s.active])||[]}
+function raidCount(){return rs().length}
+function raidXp(){return raidCount()*100}
 function localDate(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
 function todayEntry(){var d=localDate();return es().find(function(e){return e.date===d})||null}
 function clampPct(v,g){if(!g)return 0;return Math.max(0,Math.min(100,(Number(v)||0)/g*100))}
@@ -127,7 +135,7 @@ function entryXp(e){
 function xpTotal(){
   var fromDays=es().reduce(function(a,e){return a+entryXp(e)},0);
   var fromAch=achievementDefs().filter(function(a){return a.ok}).length*25;
-  var fromRaid=(Number(s.raid.done)||0)*20;
+  var fromRaid=raidXp();
   return fromDays+fromAch+fromRaid
 }
 function xpCost(level){return 500+(level-1)*100}
@@ -157,8 +165,8 @@ return '<section class="card hero"><div class="row"><div><div class="ey">'+x.emo
 '<div class="card metric"><span class="muted mini">PROTEÍNA</span><b>'+f(x.protein,0)+' g</b></div>'+
 '<div class="card metric"><span class="muted mini">PASOS</span><b>'+f(x.steps,0)+'</b></div></div>'+
 todayBlock()+weekBlock()+
-'<h2 class="sec">Experiencia</h2><section class="card"><div class="row"><div><b>⚔️ XP automático</b><div class="mini muted">Subes de nivel por constancia, no solo por bajar peso.</div></div><span class="badge">+'+recentXp(7)+' XP · 7 días</span></div><div style="margin-top:10px"><div class="xpSource"><span>📝 Registrar un día</span><b>+10 XP</b></div><div class="xpSource"><span>🍽️ 2+ comidas registradas</span><b>+5 XP</b></div><div class="xpSource"><span>🚶 Objetivo de pasos</span><b>+10 XP</b></div><div class="xpSource"><span>😴 Objetivo de sueño</span><b>+10 XP</b></div><div class="xpSource"><span>🥤 Objetivo de proteína</span><b>+15 XP</b></div><div class="xpSource"><span>🏋️ Entrenamiento</span><b>+20 XP</b></div><div class="xpSource"><span>🏆 Logro desbloqueado</span><b>+25 XP</b></div></div></section>'+
-'<h2 class="sec">Evento</h2><section class="card"><div class="row"><div><div class="ey">🎢 RAID</div><b>PortAventura x'+s.raid.target+'</b></div><span class="badge">'+s.raid.done+'/'+s.raid.target+' días</span></div><p class="mini muted">Caminata + bocadillo completo + batido + cena proteica + hidratación.</p><div class="row"><button id="minus" class="btn alt">− Día</button><button id="plus" class="btn">+ Día completado</button></div></section>'+
+'<h2 class="sec">Experiencia</h2><section class="card"><div class="row"><div><b>⚔️ XP automático</b><div class="mini muted">Subes de nivel por constancia, no solo por bajar peso.</div></div><span class="badge">+'+recentXp(7)+' XP · 7 días</span></div><div style="margin-top:10px"><div class="xpSource"><span>📝 Registrar un día</span><b>+10 XP</b></div><div class="xpSource"><span>🍽️ 2+ comidas registradas</span><b>+5 XP</b></div><div class="xpSource"><span>🚶 Objetivo de pasos</span><b>+10 XP</b></div><div class="xpSource"><span>😴 Objetivo de sueño</span><b>+10 XP</b></div><div class="xpSource"><span>🥤 Objetivo de proteína</span><b>+15 XP</b></div><div class="xpSource"><span>🏋️ Entrenamiento</span><b>+20 XP</b></div><div class="xpSource"><span>🏆 Logro desbloqueado</span><b>+25 XP</b></div><div class="xpSource"><span>⚔️ Raid excepcional</span><b>+100 XP</b></div></div></section>'+
+'<h2 class="sec">Raids</h2><section class="card"><div class="row"><div><div class="ey">⚔️ ACTIVIDAD ESPECIAL</div><b>'+raidCount()+' Raids completadas</b></div><span class="badge">+100 XP / Raid</span></div><p class="mini muted">Para días realmente excepcionales: PortAventura, una ruta potente de montaña, una actividad física fuera de lo normal… Tú me lo comentas y decidimos si cuenta como Raid.</p><div id="raidHistory">'+(raidCount()?rs().slice().reverse().slice(0,3).map(function(r){return '<div class="hist"><div class="row"><b>⚔️ '+esc(r.title||"Raid")+'</b><span class="mini muted">'+(r.date||"")+'</span></div></div>'}).join(""):'<div class="mini muted" style="margin:10px 0">Aún no has completado ninguna Raid.</div>')+'</div><div class="row"><button id="undoRaid" class="btn alt" '+(raidCount()?'':'disabled style="opacity:.45"')+'>Deshacer última</button><button id="addRaid" class="btn">⚔️ Registrar Raid</button></div></section>'+
 '<h2 class="sec">Party</h2><section class="card"><div class="row"><div><span class="mini muted">PESO CONJUNTO</span><div class="big" style="font-size:28px">'+f(partyNow)+' kg</div></div><b>-'+f(Math.max(0,partyStart-partyNow))+' kg</b></div></section>'
 }
 function log(){
@@ -274,10 +282,11 @@ function achievementDefs(){
     {id:"waist5",cat:"Progreso corporal",icon:"📏",name:"Cintura -5",desc:"Reducir 5 cm de cintura.",ok:cw>=5,now:cw,goal:5,suffix:" cm"},
     {id:"waist10",cat:"Progreso corporal",icon:"📐",name:"Cintura -10",desc:"Reducir 10 cm de cintura.",ok:cw>=10,now:cw,goal:10,suffix:" cm"},
     {id:"boss1",cat:"Bosses",icon:"👹",name:"Boss I derrotado",desc:"Llegar a "+f(x.boss,1)+" kg.",ok:x.weight<=x.boss,now:Math.max(0,x.start-x.weight),goal:Math.max(.1,x.start-x.boss),suffix:" kg"},
+    {id:"raid1",cat:"Raids",icon:"⚔️",name:"Primera Raid",desc:"Completar tu primera actividad excepcional.",ok:raidCount()>=1,now:raidCount(),goal:1},
 
     {id:"secretPerfect",cat:"Secretos",icon:"🌟",name:"Día legendario",desc:"Cumplir pasos, sueño, proteína y entrenamiento en el mismo día.",ok:pd>=1,now:pd,goal:1,hidden:true},
     {id:"secretParty",cat:"Secretos",icon:"🤝",name:"Party sincronizada",desc:"Aitor y Laura registran el mismo día.",ok:sharedRecordedDay(),now:sharedRecordedDay()?1:0,goal:1,hidden:true},
-    {id:"secretRaid",cat:"Secretos",icon:"🎢",name:"Conquistadores de PortAventura",desc:"Completar los "+s.raid.target+" días del Raid.",ok:s.raid.done>=s.raid.target,now:s.raid.done,goal:s.raid.target,hidden:true},
+    {id:"secretRaid",cat:"Secretos",icon:"🐉",name:"Veterano de Raids",desc:"Completar 5 Raids.",ok:raidCount()>=5,now:raidCount(),goal:5,hidden:true},
     {id:"secret20k",cat:"Secretos",icon:"🗺️",name:"¿Pero dónde ibas?",desc:"Superar 20.000 pasos en un solo día.",ok:mx>=20000,now:mx,goal:20000,hidden:true}
   ]
 }
@@ -300,7 +309,7 @@ function ach(){
   return html
 }
 function settings(){
-var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p><p class="mini muted">Build 2026.09.30.14</p></section>'
+var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p><p class="mini muted">Build 2026.09.30.15</p></section>'
 }
 function esc(v){return String(v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]})}
 function render(){
@@ -349,7 +358,21 @@ if(form&&form.elements.date){
   form.elements.date.addEventListener("change",function(){loadDay(this.value)});
   loadDay(form.elements.date.value);
 }
-var plus=document.getElementById("plus"),minus=document.getElementById("minus");if(plus)plus.onclick=function(){var before=unlockedAchievementIds();s.raid.done=Math.min(s.raid.target,s.raid.done+1);save();render();announceNew(before)};if(minus)minus.onclick=function(){s.raid.done=Math.max(0,s.raid.done-1);save();render()};
+var addRaid=document.getElementById("addRaid"),undoRaid=document.getElementById("undoRaid");
+if(addRaid)addRaid.onclick=function(){
+  var title=prompt("Nombre de la Raid","Raid");
+  if(title===null)return;
+  title=String(title).trim()||"Raid";
+  var before=unlockedAchievementIds();
+  rs().push({date:localDate(),title:title,xp:100});
+  save();render();
+  var after=unlockedAchievementIds();
+  if(after.length>before.length)announceNew(before);else t("⚔️ Raid completada · +100 XP")
+};
+if(undoRaid)undoRaid.onclick=function(){
+  if(!raidCount())return;
+  if(confirm("¿Deshacer la última Raid registrada?")){rs().pop();save();render();t("Raid eliminada")}
+};
 if(form)form.onsubmit=function(e){e.preventDefault();var before=unlockedAchievementIds(),d=new FormData(form),meals=currentMeals(),protein=meals.reduce(function(a,m){return a+(Number(m.protein)||0)},0),calories=meals.reduce(function(a,m){return a+(Number(m.calories)||0)},0),o={date:d.get("date"),weight:n(d.get("weight")),waist:n(d.get("waist")),protein:protein||null,calories:calories||null,meals:meals,steps:n(d.get("steps")),sleep:n(d.get("sleep")),hunger:n(d.get("hunger")),energy:n(d.get("energy")),training:d.get("training"),notes:d.get("notes")};var arr=es(),i=arr.findIndex(function(v){return v.date===o.date});if(i>=0)arr[i]=o;else arr.push(o);if(o.weight!=null)p().weight=o.weight;if(o.waist!=null)p().waist=o.waist;s.quests[s.active].checkin=1;save();render();var after=unlockedAchievementIds();if(after.length>before.length)announceNew(before);else t("Día guardado ✅")};
 var ss=document.getElementById("saveSet");if(ss)ss.onclick=function(){var d=new FormData(ss.parentElement);p().boss=Number(d.get("boss"))||p().boss;p().protein=Number(d.get("protein"))||p().protein;p().steps=Number(d.get("steps"))||p().steps;p().sleepGoal=Number(d.get("sleepGoal"))||p().sleepGoal;save();render();t("Objetivos guardados")};
 var ex=document.getElementById("export");if(ex)ex.onclick=function(){var b=new Blob([JSON.stringify(s,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="fitquest-backup.json";a.click()};
