@@ -166,7 +166,7 @@ function characterRank(){
 function gearVisual(slot,it){
   if(!it)return "";
   var src="assets/gear/"+s.active+"/"+it.id+".webp";
-  return '<div class="gearVisual '+slot+'"><span class="gearMarker">'+it.icon+'</span><img class="gearLayer" src="'+src+'" alt="" onload="this.previousElementSibling.style.display=\'none\'" onerror="this.style.display=\'none\'"></div>'
+  return '<div class="gearVisual '+slot+'"><img class="gearLayer" src="'+src+'" alt="" onerror="this.parentElement.style.display=\'none\'"></div>'
 }
 function avatarVisual(){
   var slots=["head","armor","weapon","boots","accessory","pet"],layers=slots.map(function(slot){return gearVisual(slot,itemById(gs().equipped[slot]))}).join("");
@@ -457,7 +457,7 @@ function character(){
   }).join("");
   var chest=chestCount()?'<section class="card chestCard"><div class="row"><div><div class="ey">BOTÍN PENDIENTE</div><b>'+chestCount()+' cofre'+(chestCount()===1?'':'s')+' de Raid</b><div class="mini muted">55% común · 30% raro · 12% épico · 3% legendario</div></div><div class="chestIcon">🎁</div></div><button id="openChest" class="btn" style="width:100%;margin-top:12px">Abrir cofre</button></section>':'';
   return '<div class="row"><h2 class="sec">🧙 Personaje</h2><button id="backHome" class="btn alt">← Volver</button></div>'+
-  '<section class="card characterStage"><div class="ey">'+x.name.toUpperCase()+' · NIVEL '+lv.level+'</div><span class="charRank">'+characterRank()+'</span>'+avatarVisual()+'<div class="charTitle">'+x.name+'</div><div class="row" style="justify-content:center;margin-top:10px"><span class="badge powerBadge">⚔️ Poder '+gearPower()+'</span><span class="badge">🎒 '+owned.length+' / '+GEAR.length+'</span></div><div class="designNote">El personaje base siempre lleva ropa de novato. Los slots empiezan vacíos y se van vistiendo con objetos. Cuando metamos vuestras ilustraciones, cada pieza se superpondrá aquí como una capa real del outfit.</div></section>'+
+  '<section class="card characterStage"><div class="ey">'+x.name.toUpperCase()+' · NIVEL '+lv.level+'</div><span class="charRank">'+characterRank()+'</span>'+avatarVisual()+'<div class="charTitle">'+x.name+'</div><div class="row" style="justify-content:center;margin-top:10px"><span class="badge powerBadge">⚔️ Poder '+gearPower()+'</span><span class="badge">🎒 '+owned.length+' / '+GEAR.length+'</span></div><div class="designNote">El personaje base siempre lleva ropa de novato. Los slots empiezan vacíos y se van vistiendo con objetos. Los objetos ya se equipan y cuentan para la colección. El aspecto del muñeco solo cambiará cuando exista la capa gráfica real de esa pieza; no se muestran iconos flotantes como sustituto.</div></section>'+
   chest+
   '<h2 class="sec">Equipado</h2><div class="equipGrid">'+equipped+'</div>'+
   '<h2 class="sec">Inventario</h2><div class="itemGrid">'+inventory+'</div>'+
@@ -498,7 +498,7 @@ function weigh(){
   '<h2 class="sec">Historial de pesajes</h2>'+history
 }
 function settings(){
-var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p><p class="mini muted">Build 2026.09.30.21</p></section>'
+var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p><p class="mini muted">Build 2026.09.30.22</p></section>'
 }
 function esc(v){return String(v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]})}
 function render(){
