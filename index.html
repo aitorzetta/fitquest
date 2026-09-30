@@ -10,7 +10,9 @@
 <link rel="icon" href="icon.svg">
 <title>FitQuest</title>
 <style>
-:root{--bg:#0b1020;--p:#182238;--p2:#101729;--t:#f7f8fb;--m:#9aa7bd;--l:#2a3650;--a:#7c5cff;--g:#18c79c;--w:#ffbd4a}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#17213c,#0b1020 45%,#080c17);color:var(--t);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:90px}.wrap{max-width:760px;margin:auto}.top{position:sticky;top:0;z-index:5;padding:20px 16px 8px;background:linear-gradient(#0b1020 70%,transparent)}h1{margin:0;font-size:30px}.ey{font-size:11px;color:var(--g);font-weight:800;letter-spacing:2px}.switch,.nav{display:grid;grid-template-columns:1fr 1fr;gap:10px}.switch{padding:8px 16px 12px}.switch button,.nav button,.btn,.q{border:0;font:inherit}.switch button{padding:12px;border-radius:16px;background:var(--p2);color:var(--m);font-weight:800;border:1px solid var(--l)}.switch button.on{background:linear-gradient(135deg,#6d53ef,#8f74ff);color:#fff}.main{padding:4px 16px}.card{background:linear-gradient(180deg,#182238,#111828);border:1px solid var(--l);border-radius:22px;padding:16px;margin:10px 0;box-shadow:0 14px 30px #0004}.hero{background:linear-gradient(135deg,#7c5cff48,#18c79c26,#182238)}.row{display:flex;justify-content:space-between;align-items:center;gap:12px}.big{font-size:38px;font-weight:900}.muted{color:var(--m)}.mini{font-size:12px}.badge{display:inline-block;padding:7px 10px;border-radius:999px;background:#0e1626;border:1px solid var(--l);font-size:12px;font-weight:800}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.metric b{display:block;font-size:23px;margin-top:4px}.bar{height:12px;background:#0d1424;border:1px solid var(--l);border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--a),var(--g))}.xpLine{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:8px}.xpLine b{font-size:13px}.xpSource{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--l)}.xpSource:last-child{border-bottom:0}.charLink{border:0;background:transparent;color:var(--g);font:inherit;font-size:11px;font-weight:900;letter-spacing:1.5px;padding:0;text-align:left}.characterStage{text-align:center;padding:22px 12px;background:radial-gradient(circle at 50% 35%,#7c5cff30,transparent 48%)}.avatarBig{font-size:86px;line-height:1;margin:8px 0}.charTitle{font-size:23px;font-weight:900}.equipGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:14px}.equipSlot{padding:11px;border:1px solid var(--l);border-radius:15px;background:#0e1626;text-align:left}.equipIcon{font-size:28px;display:block;margin-bottom:5px}.itemGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.itemCard{margin:0;padding:13px;min-height:168px;display:flex;flex-direction:column;justify-content:space-between}.itemIcon{font-size:31px}.rarity-common{color:#d7dce6}.rarity-rare{color:#69a8ff}.rarity-epic{color:#c68cff}.rarity-legendary{color:#ffbd4a}.lockedItem{opacity:.38;filter:saturate(.35)}.powerBadge{font-size:14px;font-weight:900}.lootPop{padding:12px;border-radius:14px;background:#10192b;border:1px solid var(--l);margin-top:10px}.sec{font-size:19px;margin:22px 2px 8px}.quest{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:11px;border:1px solid var(--l);border-radius:15px;background:#0e1626;margin:8px 0}.q{padding:9px 11px;border-radius:11px;background:#24314c;color:#dce4f3;font-weight:800}.q.done{background:#163a31;color:#7df0ba}.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(760px,100%);grid-template-columns:repeat(5,1fr);background:#090e1bf2;border-top:1px solid var(--l);padding:8px 6px calc(8px + env(safe-area-inset-bottom));z-index:8}.nav button{background:transparent;color:#8492aa;border-radius:12px;padding:7px 2px;font-size:11px}.nav button.on{background:#151e31;color:#fff}.nav span{display:block;font-size:20px}.field{display:flex;flex-direction:column;gap:6px;margin:10px 0}.formSection{margin:14px 0 6px;padding-top:10px;border-top:1px solid var(--l)}.formSection:first-child{border-top:0;padding-top:0}.formTitle{font-weight:900;margin-bottom:6px}.hint{font-size:12px;color:var(--m);line-height:1.35}.mealCard{padding:12px;border:1px solid var(--l);border-radius:16px;background:#0e1626;margin:10px 0}.mealGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mealGrid .full{grid-column:1/-1}.mealActions{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:8px}.mealTotal{padding:12px;border-radius:14px;background:#10192b;border:1px solid var(--l);margin-top:10px}.mealTotal b{font-size:20px}.danger{background:#321a22!important;color:#ff9cac!important;border:1px solid #5a2637!important}.field label{font-size:12px;color:var(--m);font-weight:800}.field input,.field textarea,.field select{background:#0c1322;color:#fff;border:1px solid var(--l);border-radius:13px;padding:12px;font:inherit;width:100%}.field textarea{min-height:80px}.btn{padding:12px 15px;border-radius:13px;background:linear-gradient(135deg,var(--a),#9c7cff);color:white;font-weight:900}.btn.alt{background:#172238;border:1px solid var(--l)}.hist{padding:11px;border:1px solid var(--l);border-radius:14px;background:#0e1626;margin:8px 0}.dailyRow{padding:10px 0;border-bottom:1px solid var(--l)}.dailyRow:last-child{border-bottom:0}.dailyTop{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:7px}.dailyVal{font-weight:900}.dayCard{padding:13px;border:1px solid var(--l);border-radius:16px;background:#0e1626;margin:8px 0}.ok{color:#7df0ba}.warn{color:#ffd27a}.achSummary{background:linear-gradient(135deg,#7c5cff35,#18c79c20,#182238)}.achGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.achCard{position:relative;margin:0;padding:14px;min-height:145px;display:flex;flex-direction:column;justify-content:space-between}.achIcon{font-size:29px;margin-bottom:8px}.achCard b{display:block;line-height:1.15}.achMeta{font-size:11px;color:var(--m);margin-top:5px;line-height:1.3}.achCard.locked{opacity:.5}.achCard.hiddenAch{background:linear-gradient(180deg,#111625,#0b101d);border-style:dashed}.achCard.unlocked{box-shadow:0 0 0 1px #18c79c55,0 14px 30px #0004}.achState{margin-top:10px;font-size:10px;font-weight:900;letter-spacing:.8px}.achProgress{height:7px;margin-top:10px}.achCat{font-size:13px;color:var(--m);font-weight:900;text-transform:uppercase;letter-spacing:1.2px;margin:24px 2px 9px}.locked{opacity:.42}.toast{position:fixed;left:50%;bottom:105px;transform:translateX(-50%);background:#fff;color:#111;padding:10px 14px;border-radius:12px;font-weight:800;display:none;z-index:20}@media(min-width:650px){.grid{grid-template-columns:repeat(3,1fr)}.achGrid{grid-template-columns:repeat(3,1fr)}}
+:root{--bg:#0b1020;--p:#182238;--p2:#101729;--t:#f7f8fb;--m:#9aa7bd;--l:#2a3650;--a:#7c5cff;--g:#18c79c;--w:#ffbd4a}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#17213c,#0b1020 45%,#080c17);color:var(--t);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:90px}.wrap{max-width:760px;margin:auto}.top{position:sticky;top:0;z-index:5;padding:20px 16px 8px;background:linear-gradient(#0b1020 70%,transparent)}h1{margin:0;font-size:30px}.ey{font-size:11px;color:var(--g);font-weight:800;letter-spacing:2px}.switch,.nav{display:grid;grid-template-columns:1fr 1fr;gap:10px}.switch{padding:8px 16px 12px}.switch button,.nav button,.btn,.q{border:0;font:inherit}.switch button{padding:12px;border-radius:16px;background:var(--p2);color:var(--m);font-weight:800;border:1px solid var(--l)}.switch button.on{background:linear-gradient(135deg,#6d53ef,#8f74ff);color:#fff}.main{padding:4px 16px}.card{background:linear-gradient(180deg,#182238,#111828);border:1px solid var(--l);border-radius:22px;padding:16px;margin:10px 0;box-shadow:0 14px 30px #0004}.hero{background:linear-gradient(135deg,#7c5cff48,#18c79c26,#182238)}.row{display:flex;justify-content:space-between;align-items:center;gap:12px}.big{font-size:38px;font-weight:900}.muted{color:var(--m)}.mini{font-size:12px}.badge{display:inline-block;padding:7px 10px;border-radius:999px;background:#0e1626;border:1px solid var(--l);font-size:12px;font-weight:800}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.metric b{display:block;font-size:23px;margin-top:4px}.bar{height:12px;background:#0d1424;border:1px solid var(--l);border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--a),var(--g))}.xpLine{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:8px}.xpLine b{font-size:13px}.xpSource{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--l)}.xpSource:last-child{border-bottom:0}.charLink{border:0;background:transparent;color:var(--g);font:inherit;font-size:11px;font-weight:900;letter-spacing:1.5px;padding:0;text-align:left}.characterStage{text-align:center;padding:22px 12px;background:radial-gradient(circle at 50% 35%,#7c5cff30,transparent 48%)}.avatarBig{font-size:86px;line-height:1;margin:8px 0}.charTitle{font-size:23px;font-weight:900}.equipGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:14px}.equipSlot{padding:11px;border:1px solid var(--l);border-radius:15px;background:#0e1626;text-align:left}.equipIcon{font-size:28px;display:block;margin-bottom:5px}.itemGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.itemCard{margin:0;padding:13px;min-height:168px;display:flex;flex-direction:column;justify-content:space-between}.itemIcon{font-size:31px}.rarity-common{color:#d7dce6}.rarity-rare{color:#69a8ff}.rarity-epic{color:#c68cff}.rarity-legendary{color:#ffbd4a}.lockedItem{opacity:.38;filter:saturate(.35)}.powerBadge{font-size:14px;font-weight:900}.lootPop{padding:12px;border-radius:14px;background:#10192b;border:1px solid var(--l);margin-top:10px}
+.avatarFrame{position:relative;width:min(330px,88vw);height:430px;margin:16px auto 6px;border:1px solid var(--l);border-radius:26px;overflow:hidden;background:radial-gradient(circle at 50% 28%,#7c5cff35,transparent 42%),linear-gradient(180deg,#111a30,#0b1020)}
+.avatarFallback{position:absolute;inset:0}.avatarFallback .head{position:absolute;top:54px;left:50%;transform:translateX(-50%);width:78px;height:78px;border-radius:50%;background:#53627b}.avatarFallback .body{position:absolute;top:126px;left:50%;transform:translateX(-50%);width:132px;height:180px;border-radius:52px 52px 30px 30px;background:#3b4963}.avatarFallback .leg{position:absolute;top:287px;width:49px;height:116px;border-radius:0 0 22px 22px;background:#313e57}.avatarFallback .leg.l{left:105px}.avatarFallback .leg.r{right:105px}.avatarBaseImg,.gearLayer{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}.gearLayer{z-index:4}.gearVisual{position:absolute;inset:0;z-index:5;pointer-events:none}.gearMarker{position:absolute;display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:15px;background:#0b1020dd;border:1px solid var(--l);font-size:25px;box-shadow:0 8px 18px #0005}.gearVisual.head .gearMarker{top:18px;left:50%;transform:translateX(-50%)}.gearVisual.armor .gearMarker{top:165px;left:50%;transform:translateX(-50%)}.gearVisual.weapon .gearMarker{top:205px;left:18px}.gearVisual.boots .gearMarker{bottom:18px;left:50%;transform:translateX(-50%)}.gearVisual.accessory .gearMarker{top:205px;right:18px}.gearVisual.pet .gearMarker{bottom:24px;right:22px}.charRank{display:inline-block;margin-top:7px;font-size:12px;font-weight:900;letter-spacing:1px;color:var(--w)}.chestCard{background:linear-gradient(135deg,#3a2a13,#151b2d);border-color:#6c5528}.chestIcon{font-size:42px}.slotEmpty{opacity:.5}.designNote{margin-top:9px;font-size:11px;color:var(--m);line-height:1.35}.sec{font-size:19px;margin:22px 2px 8px}.quest{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:11px;border:1px solid var(--l);border-radius:15px;background:#0e1626;margin:8px 0}.q{padding:9px 11px;border-radius:11px;background:#24314c;color:#dce4f3;font-weight:800}.q.done{background:#163a31;color:#7df0ba}.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(760px,100%);grid-template-columns:repeat(5,1fr);background:#090e1bf2;border-top:1px solid var(--l);padding:8px 6px calc(8px + env(safe-area-inset-bottom));z-index:8}.nav button{background:transparent;color:#8492aa;border-radius:12px;padding:7px 2px;font-size:11px}.nav button.on{background:#151e31;color:#fff}.nav span{display:block;font-size:20px}.field{display:flex;flex-direction:column;gap:6px;margin:10px 0}.formSection{margin:14px 0 6px;padding-top:10px;border-top:1px solid var(--l)}.formSection:first-child{border-top:0;padding-top:0}.formTitle{font-weight:900;margin-bottom:6px}.hint{font-size:12px;color:var(--m);line-height:1.35}.mealCard{padding:12px;border:1px solid var(--l);border-radius:16px;background:#0e1626;margin:10px 0}.mealGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mealGrid .full{grid-column:1/-1}.mealActions{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:8px}.mealTotal{padding:12px;border-radius:14px;background:#10192b;border:1px solid var(--l);margin-top:10px}.mealTotal b{font-size:20px}.danger{background:#321a22!important;color:#ff9cac!important;border:1px solid #5a2637!important}.field label{font-size:12px;color:var(--m);font-weight:800}.field input,.field textarea,.field select{background:#0c1322;color:#fff;border:1px solid var(--l);border-radius:13px;padding:12px;font:inherit;width:100%}.field textarea{min-height:80px}.btn{padding:12px 15px;border-radius:13px;background:linear-gradient(135deg,var(--a),#9c7cff);color:white;font-weight:900}.btn.alt{background:#172238;border:1px solid var(--l)}.hist{padding:11px;border:1px solid var(--l);border-radius:14px;background:#0e1626;margin:8px 0}.dailyRow{padding:10px 0;border-bottom:1px solid var(--l)}.dailyRow:last-child{border-bottom:0}.dailyTop{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:7px}.dailyVal{font-weight:900}.dayCard{padding:13px;border:1px solid var(--l);border-radius:16px;background:#0e1626;margin:8px 0}.ok{color:#7df0ba}.warn{color:#ffd27a}.achSummary{background:linear-gradient(135deg,#7c5cff35,#18c79c20,#182238)}.achGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.achCard{position:relative;margin:0;padding:14px;min-height:145px;display:flex;flex-direction:column;justify-content:space-between}.achIcon{font-size:29px;margin-bottom:8px}.achCard b{display:block;line-height:1.15}.achMeta{font-size:11px;color:var(--m);margin-top:5px;line-height:1.3}.achCard.locked{opacity:.5}.achCard.hiddenAch{background:linear-gradient(180deg,#111625,#0b101d);border-style:dashed}.achCard.unlocked{box-shadow:0 0 0 1px #18c79c55,0 14px 30px #0004}.achState{margin-top:10px;font-size:10px;font-weight:900;letter-spacing:.8px}.achProgress{height:7px;margin-top:10px}.achCat{font-size:13px;color:var(--m);font-weight:900;text-transform:uppercase;letter-spacing:1.2px;margin:24px 2px 9px}.locked{opacity:.42}.toast{position:fixed;left:50%;bottom:105px;transform:translateX(-50%);background:#fff;color:#111;padding:10px 14px;border-radius:12px;font-weight:800;display:none;z-index:20}@media(min-width:650px){.grid{grid-template-columns:repeat(3,1fr)}.achGrid{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
@@ -35,7 +37,7 @@ aitor:{name:"Aitor",emoji:"🧔",start:152.9,weight:152.9,startWaist:140,waist:1
 laura:{name:"Laura",emoji:"👩",start:107.8,weight:107.8,startWaist:112,waist:112,fat:52,visceral:21,muscle:48.5,boss:102,protein:100,steps:5000,sleepGoal:7}},
 entries:{aitor:[],laura:[]},
 quests:{aitor:{nutrition:0,movement:0,strength:0,sleep:0,checkin:0},laura:{nutrition:0,movement:0,strength:0,sleep:0,checkin:0}},
-raids:{aitor:[],laura:[]},weighins:{aitor:[],laura:[]},gear:{aitor:{owned:[],equipped:{}},laura:{owned:[],equipped:{}}},raid:{done:0,target:4}};
+raids:{aitor:[],laura:[]},weighins:{aitor:[],laura:[]},gear:{aitor:{owned:[],equipped:{}},laura:{owned:[],equipped:{}}},chests:{aitor:0,laura:0},raid:{done:0,target:4}};
 function clone(o){return JSON.parse(JSON.stringify(o))}
 function merge(a,b){Object.keys(b||{}).forEach(function(k){if(b[k]&&typeof b[k]==="object"&&!Array.isArray(b[k])&&a[k])merge(a[k],b[k]);else a[k]=b[k]});return a}
 var s;try{s=merge(clone(base),JSON.parse(localStorage.getItem(K)||"{}"))}catch(e){s=clone(base)}
@@ -43,6 +45,7 @@ if(s.profiles&&s.profiles.aitor&&Number(s.profiles.aitor.protein)===150){s.profi
 if(!s.raids)s.raids={aitor:[],laura:[]};
 if(!s.weighins)s.weighins={aitor:[],laura:[]};
 if(!s.gear)s.gear={aitor:{owned:[],equipped:{}},laura:{owned:[],equipped:{}}};
+if(!s.chests)s.chests={aitor:0,laura:0};
 ["aitor","laura"].forEach(function(k){if(!s.gear[k])s.gear[k]={owned:[],equipped:{}};if(!Array.isArray(s.gear[k].owned))s.gear[k].owned=[];if(!s.gear[k].equipped)s.gear[k].equipped={}});
 if(s.raid&&Number(s.raid.done)>0&&!s._raidMigrated){
   for(var ri=0;ri<Number(s.raid.done);ri++)s.raids.aitor.push({date:"",title:"PortAventura",xp:100});
@@ -58,13 +61,13 @@ function raidCount(){return rs().length}
 function raidXp(){return raidCount()*100}
 
 var GEAR=[
-{id:"head_start",slot:"head",icon:"🧢",name:"Gorra del Tutorial",rarity:"common",power:1,source:"starter",desc:"No da estadísticas reales, pero da +10 a sentirse protagonista."},
+{id:"head_start",slot:"head",icon:"🧢",name:"Gorra del Tutorial",rarity:"common",power:1,source:"three",desc:"No da estadísticas reales, pero da +10 a sentirse protagonista."},
 {id:"head_walk",slot:"head",icon:"🎩",name:"Sombrero del Caminante",rarity:"common",power:4,source:"raid",desc:"Ha visto más aceras que un repartidor."},
 {id:"head_10k",slot:"head",icon:"🪖",name:"Yelmo de los 10K",rarity:"rare",power:10,source:"raid",desc:"Protege de la tentación de decir «ya andaré mañana»."},
 {id:"head_boss",slot:"head",icon:"👑",name:"Corona del Boss Caído",rarity:"epic",power:18,source:"boss1",desc:"Solo la lleva quien ha tumbado a su primer Boss."},
 {id:"head_titan",slot:"head",icon:"👹",name:"Casco del Titán",rarity:"legendary",power:30,source:"raid",desc:"Nadie sabe por qué pesa tan poco."},
 
-{id:"armor_start",slot:"armor",icon:"👕",name:"Camiseta del Respawn",rarity:"common",power:1,source:"starter",desc:"Toda aventura empieza con ropa de estar por casa."},
+{id:"armor_start",slot:"armor",icon:"👕",name:"Camiseta del Respawn",rarity:"common",power:1,source:"firstday",desc:"Toda aventura empieza con ropa de estar por casa."},
 {id:"armor_water",slot:"armor",icon:"🦺",name:"Chaleco Hidratado",rarity:"common",power:4,source:"raid",desc:"Bolsillos imaginarios para botellas imaginarias."},
 {id:"armor_const",slot:"armor",icon:"🥋",name:"Coraza de la Constancia",rarity:"rare",power:11,source:"raid",desc:"Hecha con días normales repetidos muchas veces."},
 {id:"armor_streak",slot:"armor",icon:"🛡️",name:"Armadura de la Racha x7",rarity:"epic",power:19,source:"streak7",desc:"Siete días seguidos dejan marca."},
@@ -76,19 +79,19 @@ var GEAR=[
 {id:"weapon_train",slot:"weapon",icon:"⚔️",name:"Mandoble del Entreno",rarity:"epic",power:20,source:"work10",desc:"Diez entrenamientos para poder levantarla."},
 {id:"weapon_boss",slot:"weapon",icon:"🔨",name:"Martillo Rompe-Bosses",rarity:"legendary",power:32,source:"raid",desc:"Para Bosses. No para básculas."},
 
-{id:"boots_start",slot:"boots",icon:"👟",name:"Zapatillas del Primer Paso",rarity:"common",power:1,source:"starter",desc:"Literalmente hay que empezar por algún sitio."},
+{id:"boots_start",slot:"boots",icon:"👟",name:"Zapatillas del Primer Paso",rarity:"common",power:1,source:"walk5",desc:"Literalmente hay que empezar por algún sitio."},
 {id:"boots_walk",slot:"boots",icon:"🥾",name:"Botas del Paseante",rarity:"common",power:4,source:"raid",desc:"Cómodas incluso después de aparcar lejísimos."},
 {id:"boots_10k",slot:"boots",icon:"👞",name:"Botas de los 10.000",rarity:"rare",power:10,source:"raid",desc:"Suela reforzada contra centros comerciales gigantes."},
 {id:"boots_20k",slot:"boots",icon:"🛼",name:"Botas Sin Frenos",rarity:"epic",power:21,source:"steps20k",desc:"Se desbloquean cuando caminar ya empieza a ser sospechoso."},
 {id:"boots_world",slot:"boots",icon:"🥾",name:"Grebas del Mundo Exterior",rarity:"legendary",power:30,source:"raid",desc:"Tocan césped. A veces incluso montaña."},
 
-{id:"accessory_start",slot:"accessory",icon:"🧴",name:"Botella del Novato",rarity:"common",power:1,source:"starter",desc:"Objeto inicial. Contiene agua, normalmente."},
+{id:"accessory_start",slot:"accessory",icon:"🧴",name:"Botella del Novato",rarity:"common",power:1,source:"protein1",desc:"Objeto inicial. Contiene agua, normalmente."},
 {id:"accessory_check",slot:"accessory",icon:"📿",name:"Pulsera del Check-in",rarity:"common",power:4,source:"raid",desc:"Te mira fijamente hasta que registras el día."},
 {id:"accessory_protein",slot:"accessory",icon:"💍",name:"Anillo Proteico",rarity:"rare",power:11,source:"raid",desc:"No hace nada. Pero suena tremendamente científico."},
 {id:"accessory_sleep",slot:"accessory",icon:"🧿",name:"Amuleto del Sueño Profundo",rarity:"epic",power:18,source:"sleep5",desc:"Cinco descansos decentes. Milagro moderno."},
 {id:"accessory_time",slot:"accessory",icon:"⌚",name:"Reloj del Tiempo Ganado",rarity:"legendary",power:31,source:"raid",desc:"Marca siempre la hora de seguir con la aventura."},
 
-{id:"pet_start",slot:"pet",icon:"🐣",name:"Pollo del Tutorial",rarity:"common",power:1,source:"starter",desc:"No sabe qué hace aquí, pero te apoya."},
+{id:"pet_start",slot:"pet",icon:"🐣",name:"Pollo del Tutorial",rarity:"common",power:1,source:"raid1",desc:"No sabe qué hace aquí, pero te apoya."},
 {id:"pet_snail",slot:"pet",icon:"🐌",name:"Paco el Caracol",rarity:"common",power:3,source:"raid",desc:"Va lento. Sigue llegando."},
 {id:"pet_dog",slot:"pet",icon:"🐕",name:"Guardián de las Rutas",rarity:"rare",power:10,source:"raid",desc:"Especialista en elegir el camino más largo."},
 {id:"pet_fox",slot:"pet",icon:"🦊",name:"Zorro de las Cinco Raids",rarity:"epic",power:20,source:"raid5",desc:"Aparece cuando ya esto empieza a parecer una campaña."},
@@ -97,6 +100,7 @@ var GEAR=[
 var SLOT_NAMES={head:"Cabeza",armor:"Armadura",weapon:"Arma",boots:"Botas",accessory:"Accesorio",pet:"Compañero"};
 var RARITY_NAMES={common:"Común",rare:"Raro",epic:"Épico",legendary:"Legendario"};
 function gs(){return s.gear[s.active]}
+function chestCount(){return Number(s.chests[s.active])||0}
 function itemById(id){return GEAR.find(function(i){return i.id===id})||null}
 function ownItem(id){return gs().owned.indexOf(id)>=0}
 function giveItem(id,autoEquip){
@@ -107,19 +111,30 @@ function giveItem(id,autoEquip){
   return true
 }
 function initStarterGear(){
-  var changed=false,starters=GEAR.filter(function(i){return i.source==="starter"});
+  var changed=false,starter=itemById("weapon_start");
+  if(!s._gearProgressionV2){
+    ["aitor","laura"].forEach(function(k){
+      var g=s.gear[k],remove=["head_start","armor_start","boots_start","accessory_start","pet_start"];
+      g.owned=g.owned.filter(function(id){return remove.indexOf(id)<0});
+      Object.keys(g.equipped).forEach(function(slot){if(remove.indexOf(g.equipped[slot])>=0)delete g.equipped[slot]})
+    });
+    s._gearProgressionV2=1;changed=true
+  }
   ["aitor","laura"].forEach(function(k){
     var g=s.gear[k];
-    starters.forEach(function(i){
-      if(g.owned.indexOf(i.id)<0){g.owned.push(i.id);changed=true}
-      if(!g.equipped[i.slot]){g.equipped[i.slot]=i.id;changed=true}
-    })
+    if(g.owned.indexOf(starter.id)<0){g.owned.push(starter.id);changed=true}
+    if(!g.equipped.weapon){g.equipped.weapon=starter.id;changed=true}
   });
   if(changed)save()
 }
 function gearPower(){return Object.keys(gs().equipped).reduce(function(a,k){var it=itemById(gs().equipped[k]);return a+(it?it.power:0)},0)}
 function sourceLabel(i){
   if(i.source==="starter")return "Equipo inicial";
+  if(i.source==="firstday")return "Registra tu primer día";
+  if(i.source==="three")return "Registra 3 días";
+  if(i.source==="walk5")return "Llega a 5.000 pasos";
+  if(i.source==="protein1")return "Cumple proteína un día";
+  if(i.source==="raid1")return "Completa tu primera Raid";
   if(i.source==="raid")return "Botín de Raid";
   if(i.source==="boss1")return "Derrota al Boss I";
   if(i.source==="streak7")return "Racha de 7 días";
@@ -131,6 +146,11 @@ function sourceLabel(i){
 }
 function refreshSpecialGear(){
   var changed=false;
+  if(registeredDays()>=1)changed=giveItem("armor_start",false)||changed;
+  if(registeredDays()>=3)changed=giveItem("head_start",false)||changed;
+  if(maxSteps()>=5000)changed=giveItem("boots_start",false)||changed;
+  if(proteinGoalDays()>=1)changed=giveItem("accessory_start",false)||changed;
+  if(raidCount()>=1)changed=giveItem("pet_start",false)||changed;
   if(p().weight<=p().boss)changed=giveItem("head_boss",false)||changed;
   if(longestStreak()>=7)changed=giveItem("armor_streak",false)||changed;
   if(workoutCount()>=10)changed=giveItem("weapon_train",false)||changed;
@@ -138,6 +158,20 @@ function refreshSpecialGear(){
   if(sleepGoalDays()>=5)changed=giveItem("accessory_sleep",false)||changed;
   if(raidCount()>=5)changed=giveItem("pet_fox",false)||changed;
   if(changed)save()
+}
+function characterRank(){
+  var pw=gearPower();
+  return pw>=100?"LEGENDARIO":pw>=60?"ÉLITE":pw>=30?"VETERANO":pw>=10?"AVENTURERO":"NOVATO"
+}
+function gearVisual(slot,it){
+  if(!it)return "";
+  var src="assets/gear/"+s.active+"/"+it.id+".webp";
+  return '<div class="gearVisual '+slot+'"><span class="gearMarker">'+it.icon+'</span><img class="gearLayer" src="'+src+'" alt="" onload="this.previousElementSibling.style.display=\'none\'" onerror="this.style.display=\'none\'"></div>'
+}
+function avatarVisual(){
+  var slots=["head","armor","weapon","boots","accessory","pet"],layers=slots.map(function(slot){return gearVisual(slot,itemById(gs().equipped[slot]))}).join("");
+  var base="assets/characters/"+s.active+"/base.webp";
+  return '<div class="avatarFrame"><div class="avatarFallback"><div class="head"></div><div class="body"></div><div class="leg l"></div><div class="leg r"></div></div><img class="avatarBaseImg" src="'+base+'" alt="'+p().name+'" onload="this.previousElementSibling.style.display=\'none\'" onerror="this.style.display=\'none\'">'+layers+'</div>'
 }
 function raidLoot(){
   var pool=GEAR.filter(function(i){return i.source==="raid"&&!ownItem(i.id)});
@@ -262,7 +296,7 @@ return '<section class="card hero"><div class="row"><div><button id="goChar" cla
 '<div class="card metric"><span class="muted mini">PASOS</span><b>'+f(x.steps,0)+'</b></div></div>'+
 todayBlock()+weekBlock()+
 '<h2 class="sec">Experiencia</h2><section class="card"><div class="row"><div><b>⚔️ XP automático</b><div class="mini muted">Subes de nivel por constancia, no solo por bajar peso.</div></div><span class="badge">+'+recentXp(7)+' XP · 7 días</span></div><div style="margin-top:10px"><div class="xpSource"><span>📝 Registrar un día</span><b>+10 XP</b></div><div class="xpSource"><span>🍽️ 2+ comidas registradas</span><b>+5 XP</b></div><div class="xpSource"><span>🚶 Objetivo de pasos</span><b>+10 XP</b></div><div class="xpSource"><span>😴 Objetivo de sueño</span><b>+10 XP</b></div><div class="xpSource"><span>🥤 Objetivo de proteína</span><b>+15 XP</b></div><div class="xpSource"><span>🏋️ Entrenamiento</span><b>+20 XP</b></div><div class="xpSource"><span>🏆 Logro desbloqueado</span><b>+25 XP</b></div><div class="xpSource"><span>⚔️ Raid excepcional</span><b>+100 XP</b></div></div></section>'+
-'<h2 class="sec">Raids</h2><section class="card"><div class="row"><div><div class="ey">⚔️ ACTIVIDAD ESPECIAL</div><b>'+raidCount()+' Raids completadas</b></div><span class="badge">+100 XP + 🎁</span></div><p class="mini muted">Para días realmente excepcionales: PortAventura, una ruta potente de montaña, una actividad física fuera de lo normal… Cada Raid da +100 XP y un cofre de equipo.</p><div id="raidHistory">'+(raidCount()?rs().slice().reverse().slice(0,3).map(function(r){return '<div class="hist"><div class="row"><b>⚔️ '+esc(r.title||"Raid")+'</b><span class="mini muted">'+(r.date||"")+'</span></div></div>'}).join(""):'<div class="mini muted" style="margin:10px 0">Aún no has completado ninguna Raid.</div>')+'</div><div class="row"><button id="undoRaid" class="btn alt" '+(raidCount()?'':'disabled style="opacity:.45"')+'>Deshacer última</button><button id="addRaid" class="btn">⚔️ Registrar Raid</button></div></section>'+
+'<h2 class="sec">Raids</h2><section class="card"><div class="row"><div><div class="ey">⚔️ ACTIVIDAD ESPECIAL</div><b>'+raidCount()+' Raids completadas</b></div><span class="badge">+100 XP + 🎁</span></div><p class="mini muted">Para días realmente excepcionales: PortAventura, una ruta potente de montaña, una actividad física fuera de lo normal… Cada Raid da +100 XP y deja un cofre para abrir en tu ficha de Personaje.</p><div id="raidHistory">'+(raidCount()?rs().slice().reverse().slice(0,3).map(function(r){return '<div class="hist"><div class="row"><b>⚔️ '+esc(r.title||"Raid")+'</b><span class="mini muted">'+(r.date||"")+'</span></div></div>'}).join(""):'<div class="mini muted" style="margin:10px 0">Aún no has completado ninguna Raid.</div>')+'</div><div class="row"><button id="undoRaid" class="btn alt" '+(raidCount()?'':'disabled style="opacity:.45"')+'>Deshacer última</button><button id="addRaid" class="btn">⚔️ Registrar Raid</button></div></section>'+
 '<h2 class="sec">Party</h2><section class="card"><div class="row"><div><span class="mini muted">PESO CONJUNTO</span><div class="big" style="font-size:28px">'+f(partyNow)+' kg</div></div><b>-'+f(Math.max(0,partyStart-partyNow))+' kg</b></div></section>'
 }
 function log(){
@@ -411,7 +445,7 @@ function character(){
   var slots=["head","armor","weapon","boots","accessory","pet"];
   var equipped=slots.map(function(slot){
     var it=itemById(gs().equipped[slot]);
-    return '<div class="equipSlot"><span class="mini muted">'+SLOT_NAMES[slot].toUpperCase()+'</span><span class="equipIcon">'+(it?it.icon:"▫️")+'</span><b>'+(it?it.name:"Vacío")+'</b>'+(it?'<div class="mini rarity-'+it.rarity+'">'+RARITY_NAMES[it.rarity]+' · Poder '+it.power+'</div>':'')+'</div>'
+    return '<div class="equipSlot '+(it?'':'slotEmpty')+'"><span class="mini muted">'+SLOT_NAMES[slot].toUpperCase()+'</span><span class="equipIcon">'+(it?it.icon:"▫️")+'</span><b>'+(it?it.name:"Vacío")+'</b>'+(it?'<div class="mini rarity-'+it.rarity+'">'+RARITY_NAMES[it.rarity]+' · Poder '+it.power+'</div>':'<div class="mini muted">Sin equipar</div>')+'</div>'
   }).join("");
   var inventory=owned.length?owned.map(function(it){
     var eq=gs().equipped[it.slot]===it.id;
@@ -421,8 +455,10 @@ function character(){
     var ownedNow=ownItem(it.id);
     return '<section class="card itemCard '+(ownedNow?'':'lockedItem')+'"><div><div class="row"><span class="itemIcon">'+(ownedNow?it.icon:"❓")+'</span><span class="mini rarity-'+it.rarity+'">'+RARITY_NAMES[it.rarity]+'</span></div><b>'+(ownedNow?it.name:"???")+'</b><div class="achMeta">'+(ownedNow?it.desc:sourceLabel(it))+'</div></div><div class="mini '+(ownedNow?'ok':'muted')+'">'+(ownedNow?'✓ DESCUBIERTO':'🔒 '+sourceLabel(it))+'</div></section>'
   }).join("");
+  var chest=chestCount()?'<section class="card chestCard"><div class="row"><div><div class="ey">BOTÍN PENDIENTE</div><b>'+chestCount()+' cofre'+(chestCount()===1?'':'s')+' de Raid</b><div class="mini muted">55% común · 30% raro · 12% épico · 3% legendario</div></div><div class="chestIcon">🎁</div></div><button id="openChest" class="btn" style="width:100%;margin-top:12px">Abrir cofre</button></section>':'';
   return '<div class="row"><h2 class="sec">🧙 Personaje</h2><button id="backHome" class="btn alt">← Volver</button></div>'+
-  '<section class="card characterStage"><div class="ey">'+x.name.toUpperCase()+' · NIVEL '+lv.level+'</div><div class="avatarBig">'+x.emoji+'</div><div class="charTitle">'+x.name+'</div><div class="row" style="justify-content:center;margin-top:10px"><span class="badge powerBadge">⚔️ Poder '+gearPower()+'</span><span class="badge">🎒 '+owned.length+' / '+GEAR.length+'</span></div><div class="mini muted" style="margin-top:10px">El poder de equipo es solo coleccionismo. No modifica tus objetivos ni tu XP.</div></section>'+
+  '<section class="card characterStage"><div class="ey">'+x.name.toUpperCase()+' · NIVEL '+lv.level+'</div><span class="charRank">'+characterRank()+'</span>'+avatarVisual()+'<div class="charTitle">'+x.name+'</div><div class="row" style="justify-content:center;margin-top:10px"><span class="badge powerBadge">⚔️ Poder '+gearPower()+'</span><span class="badge">🎒 '+owned.length+' / '+GEAR.length+'</span></div><div class="designNote">El personaje base siempre lleva ropa de novato. Los slots empiezan vacíos y se van vistiendo con objetos. Cuando metamos vuestras ilustraciones, cada pieza se superpondrá aquí como una capa real del outfit.</div></section>'+
+  chest+
   '<h2 class="sec">Equipado</h2><div class="equipGrid">'+equipped+'</div>'+
   '<h2 class="sec">Inventario</h2><div class="itemGrid">'+inventory+'</div>'+
   '<h2 class="sec">Colección</h2><div class="itemGrid">'+collection+'</div>'
@@ -462,7 +498,7 @@ function weigh(){
   '<h2 class="sec">Historial de pesajes</h2>'+history
 }
 function settings(){
-var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p><p class="mini muted">Build 2026.09.30.19</p></section>'
+var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p><p class="mini muted">Build 2026.09.30.20</p></section>'
 }
 function esc(v){return String(v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]})}
 function render(){
@@ -475,6 +511,13 @@ function wire(){
 var gl=document.getElementById("goLog");if(gl)gl.onclick=function(){s.view="log";save();render()};
 var gc=document.getElementById("goChar");if(gc)gc.onclick=function(){s.view="character";save();render()};
 var bh=document.getElementById("backHome");if(bh)bh.onclick=function(){s.view="home";save();render()};
+var oc=document.getElementById("openChest");if(oc)oc.onclick=function(){
+  if(chestCount()<1)return;
+  var loot=raidLoot();
+  s.chests[s.active]=Math.max(0,chestCount()-1);
+  save();render();
+  if(loot)t("🎁 "+RARITY_NAMES[loot.rarity]+": "+loot.name);else t("🎁 Colección de Raid completada")
+};
 document.querySelectorAll("[data-equip]").forEach(function(b){b.onclick=function(){
   var id=b.getAttribute("data-equip"),it=itemById(id);if(!it)return;
   if(gs().equipped[it.slot]===id)delete gs().equipped[it.slot];else gs().equipped[it.slot]=id;
@@ -542,12 +585,11 @@ if(addRaid)addRaid.onclick=function(){
   if(title===null)return;
   title=String(title).trim()||"Raid";
   var before=unlockedAchievementIds();
-  var loot=raidLoot();
-  rs().push({date:localDate(),title:title,xp:100,itemId:loot?loot.id:null});
+  rs().push({date:localDate(),title:title,xp:100});
+  s.chests[s.active]=chestCount()+1;
   refreshSpecialGear();save();render();
   var after=unlockedAchievementIds();
-  if(loot)t("🎁 "+RARITY_NAMES[loot.rarity]+": "+loot.name+" · +100 XP");
-  else if(after.length>before.length)announceNew(before);else t("⚔️ Raid completada · +100 XP")
+  if(after.length>before.length)announceNew(before);else t("⚔️ Raid completada · +100 XP + cofre 🎁")
 };
 if(undoRaid)undoRaid.onclick=function(){
   if(!raidCount())return;
