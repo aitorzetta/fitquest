@@ -35,12 +35,13 @@ aitor:{name:"Aitor",emoji:"🧔",start:152.9,weight:152.9,startWaist:140,waist:1
 laura:{name:"Laura",emoji:"👩",start:107.8,weight:107.8,startWaist:112,waist:112,fat:52,visceral:21,muscle:48.5,boss:102,protein:100,steps:5000,sleepGoal:7}},
 entries:{aitor:[],laura:[]},
 quests:{aitor:{nutrition:0,movement:0,strength:0,sleep:0,checkin:0},laura:{nutrition:0,movement:0,strength:0,sleep:0,checkin:0}},
-raids:{aitor:[],laura:[]},raid:{done:0,target:4}};
+raids:{aitor:[],laura:[]},weighins:{aitor:[],laura:[]},raid:{done:0,target:4}};
 function clone(o){return JSON.parse(JSON.stringify(o))}
 function merge(a,b){Object.keys(b||{}).forEach(function(k){if(b[k]&&typeof b[k]==="object"&&!Array.isArray(b[k])&&a[k])merge(a[k],b[k]);else a[k]=b[k]});return a}
 var s;try{s=merge(clone(base),JSON.parse(localStorage.getItem(K)||"{}"))}catch(e){s=clone(base)}
 if(s.profiles&&s.profiles.aitor&&Number(s.profiles.aitor.protein)===150){s.profiles.aitor.protein=130;try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}}
 if(!s.raids)s.raids={aitor:[],laura:[]};
+if(!s.weighins)s.weighins={aitor:[],laura:[]};
 if(s.raid&&Number(s.raid.done)>0&&!s._raidMigrated){
   for(var ri=0;ri<Number(s.raid.done);ri++)s.raids.aitor.push({date:"",title:"PortAventura",xp:100});
   s._raidMigrated=1;try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}
@@ -49,6 +50,8 @@ function save(){localStorage.setItem(K,JSON.stringify(s))}
 function p(){return s.profiles[s.active]}
 function es(){return s.entries[s.active]||[]}
 function rs(){return (s.raids&&s.raids[s.active])||[]}
+function ws(){return (s.weighins&&s.weighins[s.active])||[]}
+function latestWeighin(){var a=ws().slice().sort(function(a,b){return b.date.localeCompare(a.date)});return a[0]||null}
 function raidCount(){return rs().length}
 function raidXp(){return raidCount()*100}
 function localDate(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
@@ -155,7 +158,7 @@ function announceNew(before){var defs=achievementDefs(),now=defs.filter(function
 function qrow(k,label,val){var d=s.quests[s.active][k];return '<div class="quest"><div><b>'+label+'</b><div class="mini muted">'+val+' XP</div></div><button class="q '+(d?'done':'')+'" data-q="'+k+'">'+(d?'✓ Hecho':'Marcar')+'</button></div>'}
 function home(){
 var x=p(),partyStart=s.profiles.aitor.start+s.profiles.laura.start,partyNow=s.profiles.aitor.weight+s.profiles.laura.weight,left=Math.max(0,x.weight-x.boss),lv=xpLevel();
-return '<section class="card hero"><div class="row"><div><div class="ey">'+x.emoji+' '+x.name+' · NIVEL '+lv.level+'</div><div class="big">'+f(x.weight)+' kg</div><div class="muted">-'+f(lost())+' kg desde el inicio</div></div><span class="badge">🧪 '+lv.into+' / '+lv.per+' XP</span></div><div class="bar" style="margin-top:14px"><i style="width:'+lv.pct+'%"></i></div><div class="xpLine"><span class="mini muted">XP total: '+lv.total+'</span><b>'+lv.left+' XP para nivel '+(lv.level+1)+'</b></div></section>'+
+return '<section class="card hero"><div class="row"><div><div class="ey">'+x.emoji+' '+x.name+' · NIVEL '+lv.level+'</div><div class="big">'+f(x.weight)+' kg</div><div class="muted">-'+f(lost())+' kg desde el inicio</div></div><span class="badge">🧪 '+lv.into+' / '+lv.per+' XP</span></div><div class="bar" style="margin-top:14px"><i style="width:'+lv.pct+'%"></i></div><div class="xpLine"><span class="mini muted">XP total: '+lv.total+'</span><b>'+lv.left+' XP para nivel '+(lv.level+1)+'</b></div><div class="row" style="margin-top:14px"><span class="mini muted">'+(latestWeighin()?'Último pesaje: '+latestWeighin().date:'Sin pesaje semanal todavía')+'</span><button id="goWeigh" class="btn alt">⚖️ Pesaje semanal</button></div></section>'+
 '<h2 class="sec">Boss actual</h2><section class="card"><div class="row"><div><b>👹 Boss I · '+f(x.boss)+' kg</b><div class="mini muted">'+(left?f(left)+' kg restantes':'DERROTADO')+'</div></div><span class="badge">'+f(bossPct(),0)+'%</span></div><div class="bar" style="margin-top:12px"><i style="width:'+bossPct()+'%"></i></div></section>'+
 '<h2 class="sec">Stats</h2><div class="grid">'+
 '<div class="card metric"><span class="muted mini">CINTURA</span><b>'+f(x.waist,0)+' cm</b></div>'+
@@ -218,7 +221,7 @@ var lv=xpLevel();
 return '<h2 class="sec">Progreso · '+x.name+'</h2>'+
 '<section class="card"><div class="row"><div><div class="ey">NIVEL '+lv.level+'</div><b>'+lv.into+' / '+lv.per+' XP</b></div><span class="badge">'+lv.total+' XP total</span></div><div class="bar" style="margin-top:12px"><i style="width:'+lv.pct+'%"></i></div></section>'+
 todayBlock()+weekBlock()+
-'<h2 class="sec">Cambio corporal</h2><div class="grid"><div class="card metric"><span class="mini muted">PESO INICIAL</span><b>'+f(x.start)+' kg</b></div><div class="card metric"><span class="mini muted">PESO ACTUAL</span><b>'+f(x.weight)+' kg</b></div><div class="card metric"><span class="mini muted">CINTURA INICIAL</span><b>'+f(x.startWaist,0)+' cm</b></div><div class="card metric"><span class="mini muted">CINTURA ACTUAL</span><b>'+f(x.waist,0)+' cm</b></div></div>'+
+'<h2 class="sec">Cambio corporal</h2><div class="row" style="margin:0 2px 6px"><span class="mini muted">'+(latestWeighin()?'Último pesaje oficial: '+latestWeighin().date:'Sin pesaje oficial')+'</span><button id="goWeigh" class="btn alt">⚖️ Actualizar</button></div><div class="grid"><div class="card metric"><span class="mini muted">PESO INICIAL</span><b>'+f(x.start)+' kg</b></div><div class="card metric"><span class="mini muted">PESO ACTUAL</span><b>'+f(x.weight)+' kg</b></div><div class="card metric"><span class="mini muted">CINTURA INICIAL</span><b>'+f(x.startWaist,0)+' cm</b></div><div class="card metric"><span class="mini muted">CINTURA ACTUAL</span><b>'+f(x.waist,0)+' cm</b></div></div>'+
 '<section class="card"><div class="row"><span class="muted">Peso perdido</span><b>'+f(lost())+' kg</b></div><hr style="border-color:#2a3650"><div class="row"><span class="muted">Cintura perdida</span><b>'+f(Math.max(0,x.startWaist-x.waist))+' cm</b></div><hr style="border-color:#2a3650"><div class="row"><span class="muted">Boss</span><b>'+f(bossPct(),0)+'%</b></div></section>'+
 '<h2 class="sec">Día a día</h2>'+daily
 }
@@ -308,18 +311,70 @@ function ach(){
   });
   return html
 }
+function weigh(){
+  var x=p(),last=latestWeighin(),arr=ws().slice().sort(function(a,b){return b.date.localeCompare(a.date)}).slice(0,8);
+  var history=arr.length?arr.map(function(w){
+    return '<div class="hist"><div class="row"><b>'+w.date+'</b><b>'+f(w.weight)+' kg</b></div><div class="mini muted">'+
+      (w.waist!=null?'📏 '+f(w.waist,1)+' cm · ':'')+
+      (w.fat!=null?'💧 Grasa '+f(w.fat,1)+'% · ':'')+
+      (w.visceral!=null?'🫀 Visceral '+f(w.visceral,0)+' · ':'')+
+      (w.muscle!=null?'💪 Músculo '+f(w.muscle,1)+' kg':'')+
+    '</div></div>'
+  }).join(""):'<div class="card muted">Aún no hay pesajes semanales.</div>';
+  function wf(label,name,step,ph){var v=last&&last[name]!=null?last[name]:"";return field(label,name,"number",v,ph||"",step)}
+  return '<h2 class="sec">⚖️ Pesaje semanal · '+x.name+'</h2>'+
+  '<section class="card"><div class="hint">Idealmente: recién levantado, después de ir al baño si puede ser y antes de comer o beber. El peso manda; el resto de bioimpedancia lo usamos como tendencia.</div></section>'+
+  '<form id="weighForm" class="card">'+
+    field("Fecha","date","date",localDate())+
+    wf("Peso (kg)","weight","0.1")+
+    wf("Cintura (cm)","waist","0.1")+
+    '<details class="formSection" open><summary class="formTitle">📊 Datos de la báscula</summary>'+
+      wf("Grasa corporal (%)","fat","0.1")+
+      wf("Grasa subcutánea (%)","subfat","0.1")+
+      wf("Grasa visceral","visceral","1")+
+      wf("Masa muscular (kg)","muscle","0.1")+
+      wf("Músculo esquelético (%)","skeletal","0.1")+
+      wf("Masa ósea (kg)","bone","0.1")+
+      wf("Masa libre de grasa (kg)","fatfree","0.1")+
+      wf("Agua corporal (%)","water","0.1")+
+      wf("Proteína corporal (%)","bodyProtein","0.1")+
+      wf("BMR (kcal)","bmr","1")+
+      wf("Edad metabólica","metabolicAge","1")+
+    '</details>'+
+    '<button class="btn" type="submit">💾 Guardar pesaje oficial</button>'+
+  '</form>'+
+  '<h2 class="sec">Historial de pesajes</h2>'+history
+}
 function settings(){
-var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p><p class="mini muted">Build 2026.09.30.15</p></section>'
+var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p><p class="mini muted">Build 2026.09.30.16</p></section>'
 }
 function esc(v){return String(v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]})}
 function render(){
 document.querySelectorAll("[data-p]").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-p")===s.active)});
 document.querySelectorAll("[data-v]").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-v")===s.view)});
-var m={home:home,log:log,progress:progress,ach:ach,settings:settings};document.getElementById("app").innerHTML=m[s.view]();
+var m={home:home,log:log,progress:progress,ach:ach,weigh:weigh,settings:settings};document.getElementById("app").innerHTML=m[s.view]();
 wire()
 }
 function wire(){
 var gl=document.getElementById("goLog");if(gl)gl.onclick=function(){s.view="log";save();render()};
+var gw=document.getElementById("goWeigh");if(gw)gw.onclick=function(){s.view="weigh";save();render()};
+var weighForm=document.getElementById("weighForm");
+if(weighForm)weighForm.onsubmit=function(e){
+  e.preventDefault();
+  var before=unlockedAchievementIds(),d=new FormData(weighForm);
+  var w={date:d.get("date"),weight:n(d.get("weight")),waist:n(d.get("waist")),fat:n(d.get("fat")),subfat:n(d.get("subfat")),visceral:n(d.get("visceral")),muscle:n(d.get("muscle")),skeletal:n(d.get("skeletal")),bone:n(d.get("bone")),fatfree:n(d.get("fatfree")),water:n(d.get("water")),bodyProtein:n(d.get("bodyProtein")),bmr:n(d.get("bmr")),metabolicAge:n(d.get("metabolicAge"))};
+  if(w.weight==null){t("Falta el peso");return}
+  var arr=ws(),i=arr.findIndex(function(v){return v.date===w.date});
+  if(i>=0)arr[i]=w;else arr.push(w);
+  p().weight=w.weight;
+  if(w.waist!=null)p().waist=w.waist;
+  if(w.fat!=null)p().fat=w.fat;
+  if(w.visceral!=null)p().visceral=w.visceral;
+  if(w.muscle!=null)p().muscle=w.muscle;
+  save();render();
+  var after=unlockedAchievementIds();
+  if(after.length>before.length)announceNew(before);else t("⚖️ Pesaje guardado")
+};
 var form=document.getElementById("form"),mealsBox=document.getElementById("meals"),mealSummary=document.getElementById("mealSummary"),addMeal=document.getElementById("addMeal");
 function currentMeals(){
   if(!mealsBox)return[];
