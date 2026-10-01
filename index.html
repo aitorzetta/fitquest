@@ -223,14 +223,14 @@ function todayBlock(){
   if(e&&e.steps!=null&&e.steps>=x.steps)done++;
   if(e&&e.sleep!=null&&e.sleep>=x.sleepGoal)done++;
   if(e&&mealProtein(e)>=x.protein)done++;
-  if(e&&e.training&&e.training!=="No")done++;
+  if(e&&((e.training&&e.training!=="No")||e.activeDay))done++;
   return '<h2 class="sec">Hoy</h2><section class="card">'+
     '<div class="row"><div><div class="ey">'+localDate()+'</div><b>Progreso diario</b></div><span class="badge">'+done+'/4 objetivos</span></div>'+
     goalRow("🚶","Pasos",e&&e.steps,x.steps,"pasos")+
     goalRow("😴","Sueño",e&&e.sleep,x.sleepGoal,"h")+
     '<div class="dailyRow"><div class="dailyTop"><span>🍽️ Comidas</span><span class="dailyVal">'+(e&&mealCount(e)?mealCount(e)+' registradas':'Pendiente')+'</span></div></div>'+
     goalRow("🥤","Proteína",e?mealProtein(e):null,x.protein,"g")+
-    '<div class="dailyRow"><div class="dailyTop"><span>🏋️ Entrenamiento</span><span class="dailyVal '+(e&&e.training&&e.training!=="No"?'ok':'')+'">'+(e&&e.training?e.training:'Pendiente')+'</span></div></div>'+
+    '<div class="dailyRow"><div class="dailyTop"><span>⚡ Actividad extra</span><span class="dailyVal '+(e&&((e.training&&e.training!=="No")||e.activeDay)?'ok':'')+'">'+(e&&e.training&&e.training!=="No"?'🏋️ '+e.training:(e&&e.activeDay?'🛠️ Día activo':'Pendiente'))+'</span></div></div>'+
     '<div class="row" style="margin-top:12px"><span class="mini muted">'+(e?'Registro de hoy activo':'Aún no hay registro de hoy')+'</span><button id="goLog" class="btn">Completar día</button></div>'+
   '</section>'
 }
@@ -244,11 +244,13 @@ function weekBlock(){
   var sleepDays=r.filter(function(z){return z.e&&z.e.sleep!=null&&z.e.sleep>=x.sleepGoal}).length;
   var proteinDays=r.filter(function(z){return z.e&&mealProtein(z.e)>=x.protein}).length;
   var trainings=r.filter(function(z){return z.e&&z.e.training&&z.e.training!=="No"}).length;
+  var activeDays=r.filter(function(z){return z.e&&z.e.activeDay}).length;
   return '<h2 class="sec">Últimos 7 días</h2><section class="card"><div class="grid">'+
     '<div class="metric"><span class="mini muted">PASOS MEDIOS</span><b>'+avgSteps+'</b></div>'+
     '<div class="metric"><span class="mini muted">SUEÑO OBJETIVO</span><b>'+sleepDays+'/7</b></div>'+
     '<div class="metric"><span class="mini muted">PROTEÍNA OBJETIVO</span><b>'+proteinDays+'/7</b></div>'+
     '<div class="metric"><span class="mini muted">ENTRENOS</span><b>'+trainings+'</b></div>'+
+    '<div class="metric"><span class="mini muted">DÍAS ACTIVOS</span><b>'+activeDays+'</b></div>'+
   '</div></section>'
 }
 function f(n,d){return Number(n).toFixed(d==null?1:d)}
@@ -260,6 +262,7 @@ function entryXp(e){
   if(e.sleep!=null&&Number(e.sleep)>=x.sleepGoal)v+=10;
   if(mealProtein(e)>=x.protein)v+=15;
   if(e.training&&e.training!=="No")v+=20;
+  else if(e.activeDay)v+=10;
   return v
 }
 function xpTotal(){
@@ -295,7 +298,7 @@ return '<section class="card hero"><div class="row"><div><button id="goChar" cla
 '<div class="card metric"><span class="muted mini">PROTEÍNA</span><b>'+f(x.protein,0)+' g</b></div>'+
 '<div class="card metric"><span class="muted mini">PASOS</span><b>'+f(x.steps,0)+'</b></div></div>'+
 todayBlock()+weekBlock()+
-'<h2 class="sec">Experiencia</h2><section class="card"><div class="row"><div><b>⚔️ XP automático</b><div class="mini muted">Subes de nivel por constancia, no solo por bajar peso.</div></div><span class="badge">+'+recentXp(7)+' XP · 7 días</span></div><div style="margin-top:10px"><div class="xpSource"><span>📝 Registrar un día</span><b>+10 XP</b></div><div class="xpSource"><span>🍽️ 2+ comidas registradas</span><b>+5 XP</b></div><div class="xpSource"><span>🚶 Objetivo de pasos</span><b>+10 XP</b></div><div class="xpSource"><span>😴 Objetivo de sueño</span><b>+10 XP</b></div><div class="xpSource"><span>🥤 Objetivo de proteína</span><b>+15 XP</b></div><div class="xpSource"><span>🏋️ Entrenamiento</span><b>+20 XP</b></div><div class="xpSource"><span>🏆 Logro desbloqueado</span><b>+25 XP</b></div><div class="xpSource"><span>⚔️ Raid excepcional</span><b>+100 XP</b></div></div></section>'+
+'<h2 class="sec">Experiencia</h2><section class="card"><div class="row"><div><b>⚔️ XP automático</b><div class="mini muted">Subes de nivel por constancia, no solo por bajar peso.</div></div><span class="badge">+'+recentXp(7)+' XP · 7 días</span></div><div style="margin-top:10px"><div class="xpSource"><span>📝 Registrar un día</span><b>+10 XP</b></div><div class="xpSource"><span>🍽️ 2+ comidas registradas</span><b>+5 XP</b></div><div class="xpSource"><span>🚶 Objetivo de pasos</span><b>+10 XP</b></div><div class="xpSource"><span>😴 Objetivo de sueño</span><b>+10 XP</b></div><div class="xpSource"><span>🥤 Objetivo de proteína</span><b>+15 XP</b></div><div class="xpSource"><span>🛠️ Día activo / trabajo físico</span><b>+10 XP</b></div><div class="xpSource"><span>🏋️ Entrenamiento</span><b>+20 XP</b></div><div class="xpSource"><span>🏆 Logro desbloqueado</span><b>+25 XP</b></div><div class="xpSource"><span>⚔️ Raid excepcional</span><b>+100 XP</b></div></div></section>'+
 '<h2 class="sec">Raids</h2><section class="card"><div class="row"><div><div class="ey">⚔️ ACTIVIDAD ESPECIAL</div><b>'+raidCount()+' Raids completadas</b></div><span class="badge">+100 XP + 🎁</span></div><p class="mini muted">Para días realmente excepcionales: PortAventura, una ruta potente de montaña, una actividad física fuera de lo normal… Cada Raid da +100 XP y deja un cofre para abrir en tu ficha de Personaje.</p><div id="raidHistory">'+(raidCount()?rs().slice().reverse().slice(0,3).map(function(r){return '<div class="hist"><div class="row"><b>⚔️ '+esc(r.title||"Raid")+'</b><span class="mini muted">'+(r.date||"")+'</span></div></div>'}).join(""):'<div class="mini muted" style="margin:10px 0">Aún no has completado ninguna Raid.</div>')+'</div><div class="row"><button id="undoRaid" class="btn alt" '+(raidCount()?'':'disabled style="opacity:.45"')+'>Deshacer última</button><button id="addRaid" class="btn">⚔️ Registrar Raid</button></div></section>'+
 '<h2 class="sec">Party</h2><section class="card"><div class="row"><div><span class="mini muted">PESO CONJUNTO</span><div class="big" style="font-size:28px">'+f(partyNow)+' kg</div></div><b>-'+f(Math.max(0,partyStart-partyNow))+' kg</b></div></section>'
 }
@@ -307,6 +310,7 @@ var hist=arr.length?arr.map(function(e){var pc=mealProtein(e),kc=mealCalories(e)
 (cnt?'🍽️ '+cnt+' comidas · ':'')+
 (pc?'🥤 '+f(pc,0)+' g proteína · ':'')+
 (kc?'🔥 '+f(kc,0)+' kcal · ':'')+
+(e.activeDay?'🛠️ Día activo · ':'')+
 (e.training?'🏋️ '+e.training:'')+'</div>'+(e.notes?'<div class="mini" style="margin-top:6px">'+esc(e.notes)+'</div>':'')+'</div>'}).join(""):'<div class="card muted">Todavía no hay días registrados.</div>';
 return '<h2 class="sec">Registrar día · '+x.name+'</h2><form id="form" class="card">'+
 '<div class="formSection"><div class="formTitle">📅 Día</div><div class="hint">Escoge el día que quieras completar o corregir. Si ya existe, FitQuest cargará sus datos.</div>'+
@@ -318,6 +322,7 @@ field("Sueño (horas)","sleep","number","","","0.1")+
 '<div class="formSection"><div class="row"><div><div class="formTitle">🍽️ Comidas</div><div class="hint">Añade lo que vayas comiendo. Proteína y kcal son opcionales.</div></div><button id="addMeal" type="button" class="btn alt">+ Añadir</button></div>'+
 '<div id="meals"></div><div id="mealSummary">'+mealsSummaryHTML(null)+'</div></div>'+
 '<div class="formSection"><div class="formTitle">🏋️ Estado del día</div>'+
+'<div class="field"><label>Día activo / trabajo físico</label><select name="activeDay"><option value="">No marcado</option><option value="1">Sí · actividad extra</option></select><div class="hint">Para días con bastante movimiento fuera de un entreno: bricolaje, montar cosas, mudanza, trabajo físico, etc.</div></div>'+
 '<div class="field"><label>Entrenamiento</label><select name="training"><option></option><option>No</option><option>Fuerza</option><option>Cardio</option><option>Mixto</option><option>PortAventura / caminata larga</option></select></div>'+
 field("Hambre 1–10","hunger","number","","","1")+
 field("Energía 1–10","energy","number","","","1")+
@@ -336,12 +341,13 @@ var x=p(),days=recentEntries();
 var daily=days.map(function(z){
   var e=z.e;
   if(!e)return '<div class="dayCard"><div class="row"><b>'+z.date+'</b><span class="badge">Sin datos</span></div></div>';
-  return '<div class="dayCard"><div class="row"><b>'+z.date+'</b><span class="badge">'+(e.training&&e.training!=="No"?'🏋️ '+e.training:'Día registrado')+'</span></div>'+
+  return '<div class="dayCard"><div class="row"><b>'+z.date+'</b><span class="badge">'+(e.training&&e.training!=="No"?'🏋️ '+e.training:(e.activeDay?'🛠️ Día activo':'Día registrado'))+'</span></div>'+
     '<div class="mini muted" style="margin-top:8px">'+
     (e.steps!=null?'🚶 '+e.steps+' pasos · ':'')+
     (e.sleep!=null?'😴 '+f(e.sleep,1)+' h · ':'')+
     (mealCount(e)?'🍽️ '+mealCount(e)+' comidas · ':'')+
-    (mealProtein(e)?'🥤 '+f(mealProtein(e),0)+' g':'')+
+    (mealProtein(e)?'🥤 '+f(mealProtein(e),0)+' g · ':'')+
+    (e.activeDay?'🛠️ Actividad extra':'')+
     '</div></div>'
 }).join("");
 var lv=xpLevel();
@@ -498,7 +504,7 @@ function weigh(){
   '<h2 class="sec">Historial de pesajes</h2>'+history
 }
 function settings(){
-var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p><p class="mini muted">Build 2026.09.30.23</p></section>'
+var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p><p class="mini muted">Build 2026.10.01.24</p></section>'
 }
 function esc(v){return String(v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]})}
 function render(){
@@ -572,6 +578,7 @@ function loadDay(date){
   ["steps","sleep","hunger","energy","weight","waist","notes"].forEach(function(k){
     if(form.elements[k])form.elements[k].value=e[k]==null?"":e[k];
   });
+  if(form.elements.activeDay)form.elements.activeDay.value=e.activeDay?"1":"";
   if(form.elements.training)form.elements.training.value=e.training||"";
   setMeals(e.meals,e.protein);
 }
@@ -595,7 +602,7 @@ if(undoRaid)undoRaid.onclick=function(){
   if(!raidCount())return;
   if(confirm("¿Deshacer la última Raid registrada?")){rs().pop();save();render();t("Raid eliminada")}
 };
-if(form)form.onsubmit=function(e){e.preventDefault();var before=unlockedAchievementIds(),d=new FormData(form),meals=currentMeals(),protein=meals.reduce(function(a,m){return a+(Number(m.protein)||0)},0),calories=meals.reduce(function(a,m){return a+(Number(m.calories)||0)},0),o={date:d.get("date"),weight:n(d.get("weight")),waist:n(d.get("waist")),protein:protein||null,calories:calories||null,meals:meals,steps:n(d.get("steps")),sleep:n(d.get("sleep")),hunger:n(d.get("hunger")),energy:n(d.get("energy")),training:d.get("training"),notes:d.get("notes")};var arr=es(),i=arr.findIndex(function(v){return v.date===o.date});if(i>=0)arr[i]=o;else arr.push(o);if(o.weight!=null)p().weight=o.weight;if(o.waist!=null)p().waist=o.waist;s.quests[s.active].checkin=1;save();render();var after=unlockedAchievementIds();if(after.length>before.length)announceNew(before);else t("Día guardado ✅")};
+if(form)form.onsubmit=function(e){e.preventDefault();var before=unlockedAchievementIds(),d=new FormData(form),meals=currentMeals(),protein=meals.reduce(function(a,m){return a+(Number(m.protein)||0)},0),calories=meals.reduce(function(a,m){return a+(Number(m.calories)||0)},0),o={date:d.get("date"),weight:n(d.get("weight")),waist:n(d.get("waist")),protein:protein||null,calories:calories||null,meals:meals,steps:n(d.get("steps")),sleep:n(d.get("sleep")),hunger:n(d.get("hunger")),energy:n(d.get("energy")),activeDay:d.get("activeDay")==="1",training:d.get("training"),notes:d.get("notes")};var arr=es(),i=arr.findIndex(function(v){return v.date===o.date});if(i>=0)arr[i]=o;else arr.push(o);if(o.weight!=null)p().weight=o.weight;if(o.waist!=null)p().waist=o.waist;s.quests[s.active].checkin=1;save();render();var after=unlockedAchievementIds();if(after.length>before.length)announceNew(before);else t("Día guardado ✅")};
 var ss=document.getElementById("saveSet");if(ss)ss.onclick=function(){var d=new FormData(ss.parentElement);p().boss=Number(d.get("boss"))||p().boss;p().protein=Number(d.get("protein"))||p().protein;p().steps=Number(d.get("steps"))||p().steps;p().sleepGoal=Number(d.get("sleepGoal"))||p().sleepGoal;save();render();t("Objetivos guardados")};
 var ex=document.getElementById("export");if(ex)ex.onclick=function(){var b=new Blob([JSON.stringify(s,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="fitquest-backup.json";a.click()};
 var im=document.getElementById("import");if(im)im.onchange=function(){var r=new FileReader();r.onload=function(){try{s=merge(clone(base),JSON.parse(r.result));save();render();t("Partida importada ✅")}catch(e){t("Archivo no válido")}};if(im.files[0])r.readAsText(im.files[0])}
@@ -613,7 +620,7 @@ function importHealthFromUrl(){
     var sleep=rawSleep==null||rawSleep===""?null:Number(String(rawSleep).replace(",","."));
     var arr=s.entries[who]||(s.entries[who]=[]);
     var i=arr.findIndex(function(v){return v.date===date});
-    var o=i>=0?arr[i]:{date:date,weight:null,waist:null,protein:null,calories:null,meals:[],steps:null,sleep:null,hunger:null,energy:null,training:"",notes:""};
+    var o=i>=0?arr[i]:{date:date,weight:null,waist:null,protein:null,calories:null,meals:[],steps:null,sleep:null,hunger:null,energy:null,activeDay:false,training:"",notes:""};
     if(Number.isFinite(steps))o.steps=Math.max(0,Math.round(steps));
     if(Number.isFinite(sleep))o.sleep=Math.max(0,Math.round(sleep*100)/100);
     if(i>=0)arr[i]=o;else arr.push(o);
