@@ -1,4 +1,4 @@
-const C="fitquest-v25";
+const C="fitquest-v26";
 const A=["manifest.webmanifest","icon.svg"];
 
 self.addEventListener("install",e=>e.waitUntil(
