@@ -33,7 +33,7 @@
 (function(){
 var K="fitquest_state_v1";
 var base={active:"aitor",view:"home",xp:0,profiles:{
-aitor:{name:"Aitor",emoji:"🧔",start:152.9,weight:152.9,startWaist:140,waist:140,fat:47.7,visceral:26,muscle:76,boss:145,protein:130,steps:5000,sleepGoal:7},
+aitor:{name:"Aitor",emoji:"🧔",start:152.9,weight:149.8,startWaist:140,waist:140,fat:46.3,visceral:25,muscle:76.4,boss:145,protein:130,steps:5000,sleepGoal:7},
 laura:{name:"Laura",emoji:"👩",start:107.8,weight:107.8,startWaist:112,waist:112,fat:52,visceral:21,muscle:48.5,boss:102,protein:100,steps:5000,sleepGoal:7}},
 entries:{aitor:[],laura:[]},
 quests:{aitor:{nutrition:0,movement:0,strength:0,sleep:0,checkin:0},laura:{nutrition:0,movement:0,strength:0,sleep:0,checkin:0}},
@@ -46,6 +46,19 @@ if(!s.raids)s.raids={aitor:[],laura:[]};
 if(!s.weighins)s.weighins={aitor:[],laura:[]};
 if(!s.gear)s.gear={aitor:{owned:[],equipped:{}},laura:{owned:[],equipped:{}}};
 if(!s.chests)s.chests={aitor:0,laura:0};
+if(!s._aitorWeek1_20261005){
+  if(!s.weighins)s.weighins={aitor:[],laura:[]};
+  if(!Array.isArray(s.weighins.aitor))s.weighins.aitor=[];
+  var w1={date:"2026-10-05",weight:149.8,waist:null,fat:46.3,subfat:39.1,visceral:25,muscle:76.4,skeletal:34.7,bone:4.03,fatfree:80.5,water:38.8,bodyProtein:12.2,bmr:2107,metabolicAge:39};
+  var wi=s.weighins.aitor.findIndex(function(v){return v.date===w1.date});
+  if(wi>=0)s.weighins.aitor[wi]=Object.assign({},s.weighins.aitor[wi],w1);else s.weighins.aitor.push(w1);
+  s.profiles.aitor.weight=149.8;
+  s.profiles.aitor.fat=46.3;
+  s.profiles.aitor.visceral=25;
+  s.profiles.aitor.muscle=76.4;
+  s._aitorWeek1_20261005=1;
+  try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}
+}
 ["aitor","laura"].forEach(function(k){if(!s.gear[k])s.gear[k]={owned:[],equipped:{}};if(!Array.isArray(s.gear[k].owned))s.gear[k].owned=[];if(!s.gear[k].equipped)s.gear[k].equipped={}});
 if(s.raid&&Number(s.raid.done)>0&&!s._raidMigrated){
   for(var ri=0;ri<Number(s.raid.done);ri++)s.raids.aitor.push({date:"",title:"PortAventura",xp:100});
@@ -510,7 +523,7 @@ function weigh(){
   '<h2 class="sec">Historial de pesajes</h2>'+history
 }
 function settings(){
-var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p><p class="mini muted">Build 2026.10.03.25</p></section>'
+var x=p();return '<h2 class="sec">Ajustes</h2><section class="card">'+field("Boss actual (kg)","boss","number",x.boss,"","0.1")+field("Proteína objetivo (g)","protein","number",x.protein,"","1")+field("Pasos objetivo","steps","number",x.steps,"","100")+field("Sueño objetivo (h)","sleepGoal","number",x.sleepGoal,"","0.5")+'<button id="saveSet" class="btn">Guardar objetivos</button></section><h2 class="sec">Copia de seguridad</h2><section class="card"><div class="row"><button id="export" class="btn alt">Exportar JSON</button><label class="btn alt">Importar JSON<input id="import" type="file" accept="application/json" hidden></label></div><p class="mini muted">Esta V1 guarda los datos en este dispositivo.</p><p class="mini muted">Build 2026.10.05.26</p></section>'
 }
 function esc(v){return String(v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]})}
 function render(){
