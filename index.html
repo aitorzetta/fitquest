@@ -64,6 +64,39 @@ if(s.raid&&Number(s.raid.done)>0&&!s._raidMigrated){
   for(var ri=0;ri<Number(s.raid.done);ri++)s.raids.aitor.push({date:"",title:"PortAventura",xp:100});
   s._raidMigrated=1;try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}
 }
+// Las victorias de Boss quedan guardadas para siempre en el perfil.
+function migrateBosses(){
+ var changed=false;
+ ["aitor","laura"].forEach(function(who){
+  var x=s.profiles&&s.profiles[who];if(!x)return;
+  if(!Array.isArray(x.bosses)||!x.bosses.length){
+   var old=Number(x.boss)||(who==="aitor"?145:102);
+   x.bosses=who==="aitor"?
+    [{target:145,defeatedAt:"2026-10-27",defeatedWeight:144.8},{target:old>0&&old<145?old:140,defeatedAt:null,defeatedWeight:null}]:
+    [{target:old,defeatedAt:null,defeatedWeight:null}];
+   changed=true;
+  }
+  var next=x.bosses.find(function(b){return !b.defeatedAt});
+  var goal=next?next.target:x.bosses[x.bosses.length-1].target;
+  if(Number(x.boss)!==Number(goal)){x.boss=goal;changed=true}
+ });
+ return changed
+}
+if(migrateBosses())try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}
+function recordBossDefeats(who,weight,date){
+ var x=s.profiles&&s.profiles[who];if(!x||!Array.isArray(x.bosses)||!Number.isFinite(Number(weight)))return false;
+ var changed=false;
+ x.bosses.forEach(function(b,i){
+  if(b.defeatedAt||(i>0&&!x.bosses[i-1].defeatedAt))return;
+  if(Number(weight)<=Number(b.target)){
+   b.defeatedAt=/^\d{4}-\d{2}-\d{2}$/.test(date||"")?date:localDate();
+   b.defeatedWeight=Number(weight);changed=true
+  }
+ });
+ var next=x.bosses.find(function(b){return !b.defeatedAt});
+ x.boss=next?next.target:x.bosses[x.bosses.length-1].target;
+ return changed
+}
 function save(){localStorage.setItem(K,JSON.stringify(s))}
 function p(){return s.profiles[s.active]}
 function es(){return s.entries[s.active]||[]}
@@ -164,7 +197,7 @@ function refreshSpecialGear(){
   if(maxSteps()>=5000)changed=giveItem("boots_start",false)||changed;
   if(proteinGoalDays()>=1)changed=giveItem("accessory_start",false)||changed;
   if(raidCount()>=1)changed=giveItem("pet_start",false)||changed;
-  if(p().weight<=p().boss)changed=giveItem("head_boss",false)||changed;
+  if(p().bosses&&p().bosses[0]&&p().bosses[0].defeatedAt)changed=giveItem("head_boss",false)||changed;
   if(longestStreak()>=7)changed=giveItem("armor_streak",false)||changed;
   if(workoutCount()>=10)changed=giveItem("weapon_train",false)||changed;
   if(maxSteps()>=20000)changed=giveItem("boots_20k",false)||changed;
@@ -292,14 +325,34 @@ function recentXp(days){
   return es().filter(function(e){return e.date&&new Date(e.date+"T12:00:00")>=cutoff}).reduce(function(a,e){return a+entryXp(e)},0)
 }
 function lost(){return Math.max(0,p().start-p().weight)}
-function bossPct(){var total=p().start-p().boss;return Math.max(0,Math.min(100,(p().start-p().weight)/total*100))}
+function activeBoss(){return (p().bosses||[]).find(function(b){return !b.defeatedAt})||null}
+function bossName(i){return "Boss "+(["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]||(i+1))}
+function bossPct(){
+ var bs=p().bosses||[],b=activeBoss();if(!b)return bs.length?100:0;
+ var i=bs.indexOf(b),from=i?Number(bs[i-1].target):Number(p().start);
+ return Math.max(0,Math.min(100,(from-Number(p().weight))/Math.max(.1,from-Number(b.target))*100))
+}
+function bossHistoryHTML(){
+ var wins=(p().bosses||[]).map(function(b,i){return {b:b,i:i}}).filter(function(v){return !!v.b.defeatedAt});
+ if(!wins.length)return "";
+ return '<h2 class="sec">🏆 Bosses derrotados</h2>'+
+  wins.map(function(v){
+   return '<section class="card bossVictory"><div class="row"><div><b>🏆 '+bossName(v.i)+' · '+f(v.b.target)+' kg</b><div class="mini muted">Derrotado el '+esc(v.b.defeatedAt)+' · Marca: '+f(v.b.defeatedWeight)+' kg</div></div><span class="badge">✓ DERROTADO</span></div></section>'
+  }).join("")
+}
+function bossPanel(){
+ var bs=p().bosses||[],b=activeBoss(),i=bs.indexOf(b);
+ var current=b?'<section class="card"><div class="row"><div><b>👹 '+bossName(i)+' · '+f(b.target)+' kg</b><div class="mini muted">'+f(Math.max(0,Number(p().weight)-Number(b.target)))+' kg restantes</div></div><span class="badge">'+f(bossPct(),0)+'%</span></div><div class="bar" style="margin-top:12px"><i style="width:'+bossPct()+'%"></i></div></section>':
+  '<section class="card"><b>🏆 ¡Todos los bosses derrotados!</b><p class="mini muted">Puedes crear el siguiente en Ajustes sin borrar las victorias anteriores.</p></section>';
+ return '<h2 class="sec">Boss actual</h2>'+current+bossHistoryHTML()
+}
 function t(msg){var x=document.getElementById("toast");x.textContent=msg;x.style.display="block";setTimeout(function(){x.style.display="none"},2200)}
 function announceNew(before){var defs=achievementDefs(),now=defs.filter(function(a){return a.ok&&before.indexOf(a.id)<0});if(now.length)t("🏆 Logro desbloqueado: "+now[0].name+(now.length>1?" +"+(now.length-1):""))}
 function qrow(k,label,val){var d=s.quests[s.active][k];return '<div class="quest"><div><b>'+label+'</b><div class="mini muted">'+val+' XP</div></div><button class="q '+(d?'done':'')+'" data-q="'+k+'">'+(d?'✓ Hecho':'Marcar')+'</button></div>'}
 function home(){
-var x=p(),partyStart=s.profiles.aitor.start+s.profiles.laura.start,partyNow=s.profiles.aitor.weight+s.profiles.laura.weight,left=Math.max(0,x.weight-x.boss),lv=xpLevel();
+var x=p(),partyStart=s.profiles.aitor.start+s.profiles.laura.start,partyNow=s.profiles.aitor.weight+s.profiles.laura.weight,lv=xpLevel();
 return '<section class="card hero"><div class="row"><div><button id="goChar" class="charLink"><span class="miniAvatar"><img src="assets/characters/'+s.active+'/base.webp" alt=""></span>'+x.name+' · NIVEL '+lv.level+' ▸</button><div class="big">'+f(x.weight)+' kg</div><div class="muted">-'+f(lost())+' kg desde el inicio</div></div><span class="badge">🧪 '+lv.into+' / '+lv.per+' XP</span></div><div class="bar" style="margin-top:14px"><i style="width:'+lv.pct+'%"></i></div><div class="xpLine"><span class="mini muted">XP total: '+lv.total+'</span><b>'+lv.left+' XP para nivel '+(lv.level+1)+'</b></div><div class="row" style="margin-top:14px"><span class="mini muted">'+(latestWeighin()?'Último pesaje: '+latestWeighin().date:'Sin pesaje semanal todavía')+'</span><button id="goWeigh" class="btn alt">⚖️ Pesaje semanal</button></div></section>'+
-'<h2 class="sec">Boss actual</h2><section class="card"><div class="row"><div><b>👹 Boss I · '+f(x.boss)+' kg</b><div class="mini muted">'+(left?f(left)+' kg restantes':'DERROTADO')+'</div></div><span class="badge">'+f(bossPct(),0)+'%</span></div><div class="bar" style="margin-top:12px"><i style="width:'+bossPct()+'%"></i></div></section>'+
+bossPanel()+
 '<h2 class="sec">Stats</h2><div class="grid">'+
 '<div class="card metric"><span class="muted mini">CINTURA</span><b>'+f(x.waist,0)+' cm</b></div>'+
 '<div class="card metric"><span class="muted mini">GRASA</span><b>'+f(x.fat)+'%</b></div>'+
@@ -369,7 +422,7 @@ return '<h2 class="sec">Progreso · '+x.name+'</h2>'+
 todayBlock()+weekBlock()+
 '<h2 class="sec">Cambio corporal</h2><div class="row" style="margin:0 2px 6px"><span class="mini muted">'+(latestWeighin()?'Último pesaje oficial: '+latestWeighin().date:'Sin pesaje oficial')+'</span><button id="goWeigh" class="btn alt">⚖️ Actualizar</button></div><div class="grid"><div class="card metric"><span class="mini muted">PESO INICIAL</span><b>'+f(x.start)+' kg</b></div><div class="card metric"><span class="mini muted">PESO ACTUAL</span><b>'+f(x.weight)+' kg</b></div><div class="card metric"><span class="mini muted">CINTURA INICIAL</span><b>'+f(x.startWaist,0)+' cm</b></div><div class="card metric"><span class="mini muted">CINTURA ACTUAL</span><b>'+f(x.waist,0)+' cm</b></div></div>'+
 '<section class="card"><div class="row"><span class="muted">Peso perdido</span><b>'+f(lost())+' kg</b></div><hr style="border-color:#2a3650"><div class="row"><span class="muted">Cintura perdida</span><b>'+f(Math.max(0,x.startWaist-x.waist))+' cm</b></div><hr style="border-color:#2a3650"><div class="row"><span class="muted">Boss</span><b>'+f(bossPct(),0)+'%</b></div></section>'+
-'<h2 class="sec">Día a día</h2>'+daily
+bossHistoryHTML()+'<h2 class="sec">Día a día</h2>'+daily
 }
 function allEntries(){return es().slice().sort(function(a,b){return a.date.localeCompare(b.date)})}
 function registeredDays(){return allEntries().filter(function(e){return e&&e.date}).length}
@@ -430,7 +483,8 @@ function achievementDefs(){
     {id:"lose10",cat:"Progreso corporal",icon:"🔟",name:"Doble dígito",desc:"Perder 10 kg desde el inicio.",ok:wl>=10,now:wl,goal:10,suffix:" kg"},
     {id:"waist5",cat:"Progreso corporal",icon:"📏",name:"Cintura -5",desc:"Reducir 5 cm de cintura.",ok:cw>=5,now:cw,goal:5,suffix:" cm"},
     {id:"waist10",cat:"Progreso corporal",icon:"📐",name:"Cintura -10",desc:"Reducir 10 cm de cintura.",ok:cw>=10,now:cw,goal:10,suffix:" cm"},
-    {id:"boss1",cat:"Bosses",icon:"👹",name:"Boss I derrotado",desc:"Llegar a "+f(x.boss,1)+" kg.",ok:x.weight<=x.boss,now:Math.max(0,x.start-x.weight),goal:Math.max(.1,x.start-x.boss),suffix:" kg"},
+    {id:"boss1",cat:"Bosses",icon:"👹",name:"Boss I derrotado",desc:x.bosses[0].defeatedAt?"Derrotado el "+x.bosses[0].defeatedAt+" con "+f(x.bosses[0].defeatedWeight)+" kg.":"Llegar a "+f(x.bosses[0].target,1)+" kg.",ok:!!x.bosses[0].defeatedAt,now:Math.max(0,x.start-x.weight),goal:Math.max(.1,x.start-x.bosses[0].target),suffix:" kg"},
+     ...(x.bosses[1]?[{id:"boss2",cat:"Bosses",icon:"⚔️",name:"Boss II derrotado",desc:x.bosses[1].defeatedAt?"Derrotado el "+x.bosses[1].defeatedAt+" con "+f(x.bosses[1].defeatedWeight)+" kg.":"Llegar a "+f(x.bosses[1].target,1)+" kg.",ok:!!x.bosses[1].defeatedAt,now:Math.max(0,x.bosses[0].target-x.weight),goal:Math.max(.1,x.bosses[0].target-x.bosses[1].target),suffix:" kg"}]:[]),
     {id:"raid1",cat:"Raids",icon:"⚔️",name:"Primera Raid",desc:"Completar tu primera actividad excepcional.",ok:raidCount()>=1,now:raidCount(),goal:1},
 
     {id:"secretPerfect",cat:"Secretos",icon:"🌟",name:"Día legendario",desc:"Cumplir pasos, sueño, proteína y entrenamiento en el mismo día.",ok:pd>=1,now:pd,goal:1,hidden:true},
